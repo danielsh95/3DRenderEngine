@@ -1,29 +1,52 @@
 package primitives;
 
-public class Ray {
-    Point3D POO;
-    Vector direction;
 
-    public Ray(Point3D POO, Vector direction) throws IllegalArgumentException {
-        if (!CheckIsNormal(direction))
-            throw new IllegalArgumentException("Error, The vector direction is not normalized!");
+/**
+ * This Ray class to represent point that not start from axis main.
+ * And Ray contain direction vector.
+ *
+ * **/
+
+public class Ray {
+    private Point3D POO;
+    private Vector direction;
+
+    /**
+     * Constructor of Ray that contain Point3D and direction to object Ray
+     * @param POO for starting point
+     * @param direction for direction vector
+     * **/
+    public Ray(Point3D POO, Vector direction){
         this.POO = POO;
-        this.direction = direction;
+        this.direction = direction.normalized();
     }
 
+    /**
+     * Copy Constructor of Ray
+     * @param ray
+     * **/
     public Ray(Ray ray) {
         this.POO = ray.POO;
         this.direction = ray.direction;
     }
 
+    /**
+     * get POO
+     * @return POO
+     * **/
     public Point3D getPOO() {
         return POO;
     }
 
+    /**
+     * get direction
+     * @return direction
+     * **/
     public Vector getDirection() {
         return direction;
     }
 
+    @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;
         if (obj == null) return false;
@@ -36,19 +59,5 @@ public class Ray {
     @Override
     public String toString() {
         return " POO: " + POO + " direction: " + direction;
-    }
-
-    private boolean CheckIsNormal(Vector direction)
-    {
-        double powX = direction.getHead().getX().get()*direction.getHead().getX().get();
-        double powY =direction.getHead().getY().get()*direction.getHead().getY().get();
-        double powZ =direction.getHead().getZ().get()*direction.getHead().getZ().get();
-
-        double square = Math.sqrt(powX+powY+powZ);
-
-        if (square != 1)
-            return false;
-        return true;
-
     }
 }

@@ -3,19 +3,31 @@ package geometries;
 import primitives.Point3D;
 import primitives.Vector;
 
+/**
+ * This class is used to represent Plane by using shape geometry
+ */
 public class Plane implements Geometry {
-    Point3D _p;
-    Vector _normal;
+    private Point3D _p;
+    private Vector _normal;
+
     @Override
     public Vector getNormal(Point3D point3D) {
         return null;
     }
 
-    public Plane(Point3D point3D, Vector normal){
+
+    /**
+     * constructor get point and normal for Plane
+     */
+    public Plane(Point3D point3D, Vector normal) {
         this._p = point3D;
         this._normal = normal;
     }
-    public Plane(Point3D point3D_1, Point3D point3D_2, Point3D point3D_3){
+
+    /**
+     * constructor get three points for shape plane
+     */
+    public Plane(Point3D point3D_1, Point3D point3D_2, Point3D point3D_3) {
         this._p = point3D_1;
         this._normal = null;
     }
