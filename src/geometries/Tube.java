@@ -18,10 +18,11 @@ public class Tube extends RadialGeometry {
 
     /**
      * Constructor for Tube by using axis and radius
+     *
      * @param axisRay
      * @param radius
      */
-    public Tube(Ray axisRay, double radius){
+    public Tube(Ray axisRay, double radius) {
         super(radius);
         this._axisRay = axisRay;
     }
@@ -33,6 +34,7 @@ public class Tube extends RadialGeometry {
 
     /**
      * Get axis of tube
+     *
      * @return _axisRay
      */
     public Ray get_axisRay() {
@@ -41,6 +43,6 @@ public class Tube extends RadialGeometry {
 
     @Override
     public String toString() {
-        return super.toString() + " axisRay = " +  _axisRay;
+        return super.toString() + " axisRay = " + _axisRay;
     }
 }

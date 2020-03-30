@@ -6,44 +6,63 @@ import primitives.Vector;
 import static org.junit.Assert.*;
 import static primitives.Util.isZero;
 
-public class VectorTests {
 
+/**
+ * This unitTest for Vector class
+ **/
+public class VectorTests {
+    /**
+     * Test to subtract between twe vectors
+     **/
     @Test
     public void subtract() {
-        Vector v1 = new Vector(4,2,8);
-        Vector v2 = new Vector(1,-2,-3);
+        Vector v1 = new Vector(4, 2, 8);
+        Vector v2 = new Vector(1, -2, -3);
         Vector result = v1.subtract(v2);
 
-        assertEquals(new Vector(3,4,11), result);
+        assertEquals(new Vector(3, 4, 11), result);
     }
 
+    /**
+     * Test to add between twe points
+     **/
     @Test
     public void add() {
-        Vector v1 = new Vector(4,2,8);
-        Vector v2 = new Vector(1,-2,-3);
+        Vector v1 = new Vector(4, 2, 8);
+        Vector v2 = new Vector(1, -2, -3);
         Vector result = v1.add(v2);
 
-        assertEquals(new Vector(5,0,5), result);
+        assertEquals(new Vector(5, 0, 5), result);
 
     }
 
+    /**
+     * Test to get vector multiplier scalar
+     **/
     @Test
     public void scale() {
-        Vector v = new Vector(1,2,3);
+        Vector v = new Vector(1, 2, 3);
         Vector result = v.scale(2);
 
-        assertEquals(new Vector(2,4,6), result);
+        assertEquals(new Vector(2, 4, 6), result);
 
     }
 
+    /**
+     * Test to dotProduct - Scalar multiplication
+     **/
     @Test
     public void dotProduct() {
-        Vector v1 = new Vector(4,5.5,6.2);
-        Vector v2 = new Vector(7.65,4.87,6.26);
+        Vector v1 = new Vector(4, 5.5, 6.2);
+        Vector v2 = new Vector(7.65, 4.87, 6.26);
         double result = v1.dotProduct(v2);
-        assertEquals(96.197,result,0.00001);
+        assertEquals(96.197, result, 0.00001);
     }
 
+    /**
+     * Test Vector multiplication - Returns a new vector that is perpendicular to the two existing vectors,
+     * The test will check that function is working
+     **/
     @Test
     public void crossProduct() {
 
@@ -66,36 +85,50 @@ public class VectorTests {
         try {
             v1.crossProduct(v2);
             fail("crossProduct() for parallel vectors does not throw an exception");
-        } catch (Exception e) {}
+        } catch (Exception e) {
+        }
     }
 
+    /**
+     * Test to lengthSquared Calculate the vector length squared
+     * The test will check that function is working
+     **/
     @Test
     public void lengthSquared() {
-        Vector v1 = new Vector(5,8,4);
+        Vector v1 = new Vector(5, 8, 4);
         double result = v1.lengthSquared();
-        assertEquals(105,result,0.0001);
+        assertEquals(105, result, 0.0001);
     }
 
+    /**
+     * Test for check the length of vector
+     **/
     @Test
     public void length() {
 
-        Vector v1 = new Vector(6.5,7.5,4.9);
+        Vector v1 = new Vector(6.5, 7.5, 4.9);
         double result = v1.length();
-        assertEquals(11.06842,result,0.0001);
+        assertEquals(11.06842, result, 0.0001);
     }
 
+    /**
+     * Test for check the normalize of vector, and check if the instance of vector is change to normalize.
+     **/
     @Test
     public void normalize() {
-        Vector v = new Vector(1,2,3);
+        Vector v = new Vector(1, 2, 3);
         Vector result = v.normalize();
 
         assertEquals(new Vector(0.2672612419124244, 0.5345224838248488, 0.8017837257372732), result);
         assertEquals(new Vector(0.2672612419124244, 0.5345224838248488, 0.8017837257372732), v);
     }
 
+    /**
+     * Test for check the normalize of vector (note: the test will not change the instance of object to normalize)
+     **/
     @Test
     public void normalized() {
-        Vector v = new Vector(1,2,3);
+        Vector v = new Vector(1, 2, 3);
         Vector result = v.normalize();
 
         assertEquals(new Vector(0.2672612419124244, 0.5345224838248488, 0.8017837257372732), result);
