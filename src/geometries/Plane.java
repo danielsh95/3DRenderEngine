@@ -1,5 +1,6 @@
 package geometries;
 
+import com.sun.jdi.VoidValue;
 import primitives.Point3D;
 import primitives.Vector;
 
@@ -12,7 +13,7 @@ public class Plane implements Geometry {
 
     @Override
     public Vector getNormal(Point3D point3D) {
-        return null;
+        return _normal;
     }
 
 
@@ -29,7 +30,10 @@ public class Plane implements Geometry {
      */
     public Plane(Point3D point3D_1, Point3D point3D_2, Point3D point3D_3) {
         this._p = point3D_1;
-        this._normal = null;
+        Vector v1 = point3D_1.subtract(point3D_2);
+        Vector v2 = point3D_2.subtract(point3D_3);
+        Vector n = v1.crossProduct(v2).normalize();
+        this._normal = n;
     }
 
     public Point3D get_p() {
