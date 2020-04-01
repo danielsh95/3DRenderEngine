@@ -9,6 +9,11 @@ import primitives.Vector;
 public class Sphere extends RadialGeometry {
     private Point3D _center;
 
+    /**
+     * GetNormal to Sphere
+     * @param point3D
+     * @return normal to Sphere
+     * **/
     @Override
     public Vector getNormal(Point3D point3D) {
 

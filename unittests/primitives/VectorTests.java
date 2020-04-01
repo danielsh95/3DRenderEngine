@@ -133,4 +133,26 @@ public class VectorTests {
 
         assertEquals(new Vector(0.2672612419124244, 0.5345224838248488, 0.8017837257372732), result);
     }
+
+    /**
+     * Test for checking ctors is vector (0,0,0)
+     **/
+    @Test
+    public void ctor() {
+
+        try {
+            Vector v1 = new Vector(new Coordinate(0), new Coordinate(0), new Coordinate(0));
+            fail("vector can't be (0,0,0)");
+        } catch (IllegalArgumentException e) {}
+
+        try {
+            Vector v2 = new Vector(new Vector(0, 0, 0));
+            fail("vector can't be (0,0,0)");
+        } catch (IllegalArgumentException e) {}
+
+        try {
+            Vector v3 = new Vector(0, 0, 0);
+            fail("vector can't be (0,0,0)");
+        } catch (IllegalArgumentException e) {}
+    }
 }

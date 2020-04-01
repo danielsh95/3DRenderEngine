@@ -9,11 +9,6 @@ import primitives.Vector;
 public abstract class RadialGeometry implements Geometry {
     private double _radius;
 
-    @Override
-    public Vector getNormal(Point3D point3D) {
-        return null;
-    }
-
     /**
      * constructor with parameter radius
      *

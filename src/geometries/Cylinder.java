@@ -15,15 +15,7 @@ public class Cylinder extends Tube {
 
     @Override
     public Vector getNormal(Point3D point3D) {
-        Vector P0_to_P1 = point3D.subtract(super.get_axisRay().getPOO());
-        Vector v = super.get_axisRay().getDirection().normalized();
-        double t = P0_to_P1.dotProduct(v);
-
-
-        Point3D o = super.get_axisRay().getPOO().add(v.scale(t));
-        Vector n = point3D.subtract(o).normalize();
-
-        return n;
+        return null;
     }
 
 

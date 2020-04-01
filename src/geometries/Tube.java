@@ -11,9 +11,22 @@ import primitives.Vector;
 public class Tube extends RadialGeometry {
     private Ray _axisRay;
 
+    /**
+     * GetNormal to Tube
+     * @param point3D
+     * @return normal to Tube
+     * **/
     @Override
     public Vector getNormal(Point3D point3D) {
-        return null;
+        Vector P0_to_P = point3D.subtract(_axisRay.getPOO());
+        Vector v = _axisRay.getDirection().normalized();
+        double t = P0_to_P.dotProduct(v);
+
+
+        Point3D o = _axisRay.getPOO().add(v.scale(t));
+        Vector n = point3D.subtract(o).normalize();
+
+        return n;
     }
 
     /**
