@@ -22,6 +22,7 @@ public final class Main {
      * @param args irrelevant here
      */
     public static void main(String[] args) {
+        out.println("dfghfd");
 
 
 
