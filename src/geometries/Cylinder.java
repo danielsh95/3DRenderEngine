@@ -12,10 +12,20 @@ import primitives.Vector;
 public class Cylinder extends Tube {
     private double _height;
 
-
+    /**
+     * Get Normal to Cylinder by the point3D
+     * @param point3D
+     * @return normal vector
+     * **/
     @Override
     public Vector getNormal(Point3D point3D) {
-        return null;
+        Vector P0_to_P = point3D.subtract(super.get_axisRay().getPOO());
+        Vector v = super.get_axisRay().getDirection();
+        if(v.dotProduct(P0_to_P) == 0)
+        {
+            return v;
+        }
+        return super.getNormal(point3D);
     }
 
 
