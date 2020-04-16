@@ -11,27 +11,32 @@ public class Sphere extends RadialGeometry {
 
     /**
      * GetNormal to Sphere
+     *
      * @param point3D
      * @return normal to Sphere
-     * **/
+     **/
     @Override
     public Vector getNormal(Point3D point3D) {
-
-        return new Vector(point3D.subtract(_center)).normalize();
+        return point3D.subtract(_center).normalize();
     }
 
     /**
      * This Sphere class implement from RadialGeometry to achieve sphere
+     *
+     * @param center point center of sphere
+     * @param radius radius of sphere
      */
     public Sphere(Point3D center, double radius) {
         super(radius);
-        this._center = center;
+        _center = center;
     }
 
     /**
      * Get center of Sphere
+     *
+     * @return center of sphere
      */
-    public Point3D get_center() {
+    public Point3D getCenter() {
         return _center;
     }
 

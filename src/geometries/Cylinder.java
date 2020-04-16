@@ -3,34 +3,41 @@ package geometries;
 import jdk.jfr.Description;
 import primitives.Point3D;
 import primitives.Ray;
+import primitives.Util;
 import primitives.Vector;
 
-
 /**
- * This class is used to represent Cylinder by extend from Tube class
+ * This class used to represent Cylinder by extend from Tube class
  */
 public class Cylinder extends Tube {
     private double _height;
 
     /**
      * Get Normal to Cylinder by the point3D
-     * @param point3D
+     *
+     * @param point3D point in the cylinder
      * @return normal vector
-     * **/
+     **/
     @Override
     public Vector getNormal(Point3D point3D) {
-        Vector P0_to_P = point3D.subtract(super.get_axisRay().getPOO());
-        Vector v = super.get_axisRay().getDirection();
-        if(v.dotProduct(P0_to_P) == 0)
-        {
+        Vector v = _axisRay.getDirection();
+        Vector p0ToP;
+        try{
+            p0ToP = point3D.subtract(_axisRay.getPOO());
+        }catch (IllegalArgumentException e){// point3D == Poo
             return v;
         }
+
+        //if point3D in the bases
+        if (Util.isZero(v.dotProduct(p0ToP)))
+            return v;
+
+        //else - point is inside the cylinder
         return super.getNormal(point3D);
     }
 
-
     /**
-     * Constractor of Cylinder
+     * Constructor of Cylinder
      *
      * @param height  height of Cylinder
      * @param axisRay axis of Cylinder
@@ -46,7 +53,7 @@ public class Cylinder extends Tube {
      *
      * @return height in type double
      **/
-    public double get_height() {
+    public double getHeight() {
         return _height;
     }
 

@@ -1,6 +1,5 @@
 package primitives;
 
-
 /**
  * This Vector class to represent Vector
  **/
@@ -14,7 +13,6 @@ public class Vector {
      * @param head of other Point3D
      **/
     public Vector(Point3D head) {
-
         if (head.equals(Point3D.ZERO)) {
             throw new IllegalArgumentException("Vector can't be (0,0,0)");
         }
@@ -142,7 +140,6 @@ public class Vector {
      * @return A new vector that stands for two vectors
      **/
     public Vector crossProduct(Vector vector2) {
-
         double vector1_x = this.getHead().getX().get();
         double vector1_y = this.getHead().getY().get();
         double vector1_z = this.getHead().getZ().get();
@@ -150,7 +147,6 @@ public class Vector {
         double vector2_x = vector2.getHead().getX().get();
         double vector2_y = vector2.getHead().getY().get();
         double vector2_z = vector2.getHead().getZ().get();
-
 
         double preI = vector1_y * vector2_z - vector1_z * vector2_y;
         double preJ = -(vector1_x * vector2_z - vector1_z * vector2_x);
@@ -204,8 +200,6 @@ public class Vector {
     public Vector normalized() {
         return new Vector(this).normalize();
     }
-
-
 }
 
 

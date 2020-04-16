@@ -1,27 +1,31 @@
 package geometries;
 
-
 import primitives.Point3D;
 import primitives.Ray;
+import primitives.Util;
 import primitives.Vector;
 
 /**
  * This Tube class implement from RadialGeometry to achieve Tube
  */
 public class Tube extends RadialGeometry {
-    private Ray _axisRay;
+    protected Ray _axisRay;
 
     /**
      * GetNormal to Tube
-     * @param point3D
-     * @return normal to Tube
-     * **/
+     *
+     * @param point3D point in the tube
+     * @return normal to tube
+     **/
     @Override
     public Vector getNormal(Point3D point3D) {
-        Vector P0_to_P = point3D.subtract(_axisRay.getPOO());
-        Vector v = _axisRay.getDirection().normalized();
-        double t = P0_to_P.dotProduct(v);
+        Vector p0ToP = point3D.subtract(_axisRay.getPOO());
+        Vector v = _axisRay.getDirection();
+        double t = p0ToP.dotProduct(v);
 
+        //check if projection is zero
+        if(Util.isZero(t))
+            return p0ToP.normalize();
 
         Point3D o = _axisRay.getPOO().add(v.scale(t));
         Vector n = point3D.subtract(o).normalize();
@@ -32,12 +36,12 @@ public class Tube extends RadialGeometry {
     /**
      * Constructor for Tube by using axis and radius
      *
-     * @param axisRay
-     * @param radius
+     * @param axisRay ray in the tube
+     * @param radius  radius to tube
      */
     public Tube(Ray axisRay, double radius) {
         super(radius);
-        this._axisRay = axisRay;
+        _axisRay = axisRay;
     }
 
     @Override
@@ -46,11 +50,11 @@ public class Tube extends RadialGeometry {
     }
 
     /**
-     * Get axis of tube
+     * Get axis ray of tube
      *
-     * @return _axisRay
+     * @return axisRay
      */
-    public Ray get_axisRay() {
+    public Ray getAxisRay() {
         return _axisRay;
     }
 

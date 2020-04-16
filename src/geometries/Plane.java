@@ -5,7 +5,7 @@ import primitives.Point3D;
 import primitives.Vector;
 
 /**
- * This class is used to represent Plane by using shape geometry
+ * This class used to represent Plane by using shape geometry
  */
 public class Plane implements Geometry {
     private Point3D _p;
@@ -16,9 +16,11 @@ public class Plane implements Geometry {
         return _normal;
     }
 
-
     /**
      * constructor get point and normal for Plane
+     *
+     * @param point3D point in the plane
+     * @param normal  normal to Plane
      */
     public Plane(Point3D point3D, Vector normal) {
         this._p = point3D;
@@ -27,6 +29,10 @@ public class Plane implements Geometry {
 
     /**
      * constructor get three points for shape plane
+     *
+     * @param point3D_1 on the plane
+     * @param point3D_2 on the plane
+     * @param point3D_3 on the plane
      */
     public Plane(Point3D point3D_1, Point3D point3D_2, Point3D point3D_3) {
         this._p = point3D_1;
@@ -36,10 +42,20 @@ public class Plane implements Geometry {
         this._normal = n;
     }
 
-    public Point3D get_p() {
+    /**
+     * get point of plane
+     *
+     * @return point on the plane
+     **/
+    public Point3D getPoint() {
         return _p;
     }
 
+    /**
+     * get normal of plane
+     *
+     * @return normal of plane
+     **/
     public Vector getNormal() {
         return _normal;
     }
