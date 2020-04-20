@@ -6,6 +6,8 @@ import primitives.Ray;
 import primitives.Util;
 import primitives.Vector;
 
+import java.util.List;
+
 /**
  * This class used to represent Cylinder by extend from Tube class
  */
@@ -22,9 +24,9 @@ public class Cylinder extends Tube {
     public Vector getNormal(Point3D point3D) {
         Vector v = _axisRay.getDirection();
         Vector p0ToP;
-        try{
+        try {
             p0ToP = point3D.subtract(_axisRay.getPOO());
-        }catch (IllegalArgumentException e){// point3D == Poo
+        } catch (IllegalArgumentException e) {// point3D == Poo
             return v;
         }
 
@@ -34,6 +36,11 @@ public class Cylinder extends Tube {
 
         //else - point is inside the cylinder
         return super.getNormal(point3D);
+    }
+
+    @Override
+    public List<Point3D> findIntersections(Ray ray){
+        return null;
     }
 
     /**

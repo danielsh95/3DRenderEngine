@@ -6,7 +6,7 @@ import primitives.Vector;
 /**
  * This class is used to represent shape geometry
  */
-interface Geometry {
+interface Geometry extends Intersectable {
     /**
      * Get normal to geometry shape
      *

@@ -1,7 +1,11 @@
 package geometries;
 
 import primitives.Point3D;
+import primitives.Ray;
+import primitives.Util;
 import primitives.Vector;
+
+import java.util.List;
 
 /**
  * This Sphere class implement from RadialGeometry to achieve sphere
@@ -18,6 +22,40 @@ public class Sphere extends RadialGeometry {
     @Override
     public Vector getNormal(Point3D point3D) {
         return point3D.subtract(_center).normalize();
+    }
+
+    @Override
+    public List<Point3D> findIntersections(Ray ray) {
+        Point3D p0 = ray.getPOO();
+        Vector v = ray.getDirection();
+        Vector u;
+        double radius = getRadius();
+        try {
+            u = _center.subtract(p0);
+        } catch (IllegalArgumentException e) {
+            //p0 start in the center
+            return List.of(ray.getPoint(radius));
+        }
+        double tm = Util.alignZero(v.dotProduct(u));
+        double dSquare = (tm == 0) ? u.lengthSquared() : u.lengthSquared() - tm * tm;
+        double thSquare = Util.alignZero(radius * radius - dSquare);
+
+        //thSquare cant be minus, and not have intersections - because the ray out of sphere
+        if (thSquare <= 0) return null;
+
+        double th = Util.alignZero(Math.sqrt(thSquare));
+        if (th == 0) return null;//not have intersections
+
+        double t1 = Util.alignZero(tm - th);
+        double t2 = Util.alignZero(tm + th);
+        if (t1 <= 0 && t2 <= 0) return null;//not have intersections
+
+        //there are two intersections points
+        if (t1 > 0 && t2 > 0) return List.of(ray.getPoint(t1), ray.getPoint(t2));
+        if (t1 > 0)//one intersection point
+            return List.of(ray.getPoint(t1));
+        else////one intersection point
+            return List.of(ray.getPoint(t2));
     }
 
     /**
@@ -43,6 +81,5 @@ public class Sphere extends RadialGeometry {
     @Override
     public String toString() {
         return " center = " + _center;
-
     }
 }

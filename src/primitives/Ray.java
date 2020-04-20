@@ -49,6 +49,16 @@ public class Ray {
         return direction;
     }
 
+    /**
+     * Get a new point3D by len of ray
+     *
+     * @param t
+     * @return new Point3D
+     */
+    public Point3D getPoint(double t) {
+        return Util.isZero(t) ? POO : POO.add(direction.scale(t));
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;
