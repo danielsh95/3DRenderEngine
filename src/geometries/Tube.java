@@ -3,6 +3,7 @@ package geometries;
 import primitives.Point3D;
 import primitives.Ray;
 import primitives.Util;
+import static primitives.Util.isZero;
 import primitives.Vector;
 
 import java.util.List;
@@ -26,7 +27,7 @@ public class Tube extends RadialGeometry {
         double t = p0ToP.dotProduct(v);
 
         //check if projection is zero
-        if(Util.isZero(t))
+        if(isZero(t))
             return p0ToP.normalize();
 
         Point3D o = _axisRay.getPOO().add(v.scale(t));

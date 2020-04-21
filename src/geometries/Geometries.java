@@ -7,6 +7,9 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * This class to show all geometries
+ * **/
 public class Geometries implements Intersectable {
     private List<Intersectable> _geometries;
 
@@ -20,7 +23,7 @@ public class Geometries implements Intersectable {
     /**
      * constractor for the geometries
      *
-     * @param geometries
+     * @param geometries list of geometries
      **/
     public Geometries(Intersectable... geometries) {
         _geometries = new LinkedList<Intersectable>();
@@ -29,6 +32,7 @@ public class Geometries implements Intersectable {
 
     /**
      * that method add geometries
+     * @param geometries list of geometries
      **/
     public void add(Intersectable... geometries) {
         for (Intersectable g : geometries) {

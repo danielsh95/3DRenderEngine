@@ -7,8 +7,10 @@ import primitives.Vector;
 
 import static org.junit.Assert.*;
 
+/**
+ * Class test for collection of geometries
+ * **/
 public class GeometriesTests {
-
     @Test
     public void findIntersections() {
         // =============== Boundary Values Tests ==================
@@ -46,6 +48,7 @@ public class GeometriesTests {
         assertEquals("all geometries intersections",4, geometries4.findIntersections(ray4).size());
 
         // ============ Equivalence Partitions Tests ==============
+
         // TC05: intersection of some geometries
         Ray ray5 = new Ray(new Point3D(-16.89,12.32,0),new Vector(19.44,-8.5,2.01));
         assertEquals("intersection of some geometries",2, geometries4.findIntersections(ray5).size());

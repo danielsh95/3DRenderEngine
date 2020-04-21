@@ -1,6 +1,5 @@
 package geometries;
 
-import com.sun.jdi.VoidValue;
 import primitives.Point3D;
 import primitives.Ray;
 import primitives.Vector;
@@ -8,7 +7,6 @@ import static primitives.Util.alignZero;
 import static primitives.Util.isZero;
 
 import java.util.List;
-
 
 /**
  * This class used to represent Plane by using shape geometry
@@ -47,7 +45,6 @@ public class Plane implements Geometry {
             return null;
 
         double t = alignZero(_normal.dotProduct(p0ToP) / nDotV);
-
         return t <= 0 ? null : List.of(ray.getPoint(t));
     }
 

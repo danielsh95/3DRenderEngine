@@ -4,6 +4,7 @@ import jdk.jfr.Description;
 import primitives.Point3D;
 import primitives.Ray;
 import primitives.Util;
+import static primitives.Util.isZero;
 import primitives.Vector;
 
 import java.util.List;
@@ -31,7 +32,7 @@ public class Cylinder extends Tube {
         }
 
         //if point3D in the bases
-        if (Util.isZero(v.dotProduct(p0ToP)))
+        if (isZero(v.dotProduct(p0ToP)))
             return v;
 
         //else - point is inside the cylinder

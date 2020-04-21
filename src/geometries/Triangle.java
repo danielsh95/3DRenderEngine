@@ -37,6 +37,7 @@ public class Triangle extends Polygon {
         Vector v2 = _vertices.get(1).subtract(p0);
         Vector v3 = _vertices.get(2).subtract(p0);
 
+        //Check if all three vectors is against the triangle
         double projV1 = v.dotProduct(v1.crossProduct(v2));
         if (isZero(projV1))
             return null;
@@ -47,6 +48,7 @@ public class Triangle extends Polygon {
         if (isZero(projV3))
             return null;
 
+        //Check if all the projV is same sign
         if ((projV1 > 0 && projV2 > 0 && projV3 > 0) || (projV1 < 0 && projV2 < 0 && projV3 < 0))
             return intersectionsOfPlane;
         else return null;

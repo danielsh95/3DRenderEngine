@@ -1,11 +1,11 @@
 package primitives;
 
+import static primitives.Util.isZero;
 
 /**
  * This Ray class to represent point that not start from axis main.
  * And Ray contain direction vector.
  **/
-
 public class Ray {
     private Point3D POO;
     private Vector direction;
@@ -13,7 +13,7 @@ public class Ray {
     /**
      * Constructor of Ray that contain Point3D and direction to object Ray
      *
-     * @param POO       for starting point
+     * @param POO for starting point
      * @param direction for direction vector
      **/
     public Ray(Point3D POO, Vector direction) {
@@ -32,7 +32,7 @@ public class Ray {
     }
 
     /**
-     * get POO
+     * Get POO
      *
      * @return POO
      **/
@@ -41,7 +41,7 @@ public class Ray {
     }
 
     /**
-     * get direction
+     * Get direction
      *
      * @return direction
      **/
@@ -56,7 +56,7 @@ public class Ray {
      * @return new Point3D
      */
     public Point3D getPoint(double t) {
-        return Util.isZero(t) ? POO : POO.add(direction.scale(t));
+        return isZero(t) ? POO : POO.add(direction.scale(t));
     }
 
     @Override
