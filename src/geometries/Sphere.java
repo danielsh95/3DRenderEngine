@@ -2,7 +2,9 @@ package geometries;
 
 import primitives.Point3D;
 import primitives.Ray;
+
 import static primitives.Util.alignZero;
+
 import primitives.Vector;
 
 import java.util.List;
@@ -29,16 +31,15 @@ public class Sphere extends RadialGeometry {
         Point3D p0 = ray.getPOO();
         Vector v = ray.getDirection();
         Vector u;
-        double radius = getRadius();
         try {
             u = _center.subtract(p0);
         } catch (IllegalArgumentException e) {
             //p0 start in the center
-            return List.of(ray.getPoint(radius));
+            return List.of(ray.getPoint(_radius));
         }
         double tm = alignZero(v.dotProduct(u));
         double dSquare = (tm == 0) ? u.lengthSquared() : u.lengthSquared() - tm * tm;
-        double thSquare = alignZero(radius * radius - dSquare);
+        double thSquare = alignZero(_radius * _radius - dSquare);
 
         //thSquare cant be minus, and not have intersections - because the ray out of sphere
         if (thSquare <= 0) return null;

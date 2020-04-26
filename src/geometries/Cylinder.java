@@ -4,7 +4,9 @@ import jdk.jfr.Description;
 import primitives.Point3D;
 import primitives.Ray;
 import primitives.Util;
+
 import static primitives.Util.isZero;
+
 import primitives.Vector;
 
 import java.util.List;
@@ -40,7 +42,7 @@ public class Cylinder extends Tube {
     }
 
     @Override
-    public List<Point3D> findIntersections(Ray ray){
+    public List<Point3D> findIntersections(Ray ray) {
         return null;
     }
 
@@ -68,6 +70,5 @@ public class Cylinder extends Tube {
     @Override
     public String toString() {
         return super.toString() + " height = " + _height;
-
     }
 }

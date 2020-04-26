@@ -7,12 +7,10 @@ import static java.lang.System.out;
 import static org.junit.Assert.*;
 import static primitives.Util.isZero;
 
-
 /**
  * This unitTest for Vector class
  **/
 public class VectorTests {
-
     private Vector v1 = new Vector(1, 2, 3);
     private Vector v2 = new Vector(-2, -4, -6);
     private Vector v3 = new Vector(0, 3, -2);
@@ -35,7 +33,6 @@ public class VectorTests {
         Point3D p1 = new Point3D(1, 2, 3);
         if (!Point3D.ZERO.equals(p1.add(new Vector(-1, -2, -3))))
             fail("ERROR: Point + Vector does not work correctly");
-
     }
 
     /**
@@ -47,7 +44,6 @@ public class VectorTests {
         Vector result = v.scale(2);
 
         assertEquals(new Vector(2, 4, 6), result);
-
     }
 
     /**
@@ -55,8 +51,6 @@ public class VectorTests {
      **/
     @Test
     public void dotProduct() {
-        // test Dot-Product
-
         if (!isZero(v1.dotProduct(v3)))
             fail("ERROR: dotProduct() for orthogonal vectors is not zero");
         if (!isZero(v1.dotProduct(v2) + 28))
@@ -135,20 +129,22 @@ public class VectorTests {
      **/
     @Test
     public void ctor() {
-
         try {
             Vector v1 = new Vector(new Coordinate(0), new Coordinate(0), new Coordinate(0));
             fail("vector can't be (0,0,0)");
-        } catch (IllegalArgumentException e) {}
+        } catch (IllegalArgumentException e) {
+        }
 
         try {
             Vector v2 = new Vector(new Vector(0, 0, 0));
             fail("vector can't be (0,0,0)");
-        } catch (IllegalArgumentException e) {}
+        } catch (IllegalArgumentException e) {
+        }
 
         try {
             Vector v3 = new Vector(0, 0, 0);
             fail("vector can't be (0,0,0)");
-        } catch (IllegalArgumentException e) {}
+        } catch (IllegalArgumentException e) {
+        }
     }
 }

@@ -3,7 +3,6 @@
  * Yehuda Zohar - 207320797
  **/
 
-
 import primitives.*;
 
 import static java.lang.System.out;

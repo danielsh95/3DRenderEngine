@@ -25,7 +25,7 @@ public class PlaneTests {
 
     /**
      * Test to method findIntersections of Plane, the tests will check 9 tests, 2 EP, and 7 BVA
-     * **/
+     **/
     @Test
     public void findIntersections() {
         Plane plane = new Plane(new Point3D(1, 0, 0), new Vector(1, 1, 1));

@@ -11,7 +11,7 @@ import static org.junit.Assert.*;
 
 /**
  * This unitTest for Triangle class
- * **/
+ **/
 public class TriangleTests {
     /**
      * Test method for {@link geometries.Triangle#getNormal(primitives.Point3D)}.
@@ -41,9 +41,9 @@ public class TriangleTests {
         Ray ray2 = new Ray(new Point3D(6.76, 4.91, 4.89), new Vector(-2.38, -1.39, -4.02));
         assertNull("Ray's line is against edge", triangle.findIntersections(ray2));
 
-        // TC03: Ray's line is against edge (0 points)
+        // TC03: Ray's line is against vertex (0 points)
         Ray ray3 = new Ray(new Point3D(-7.3, -6.14, 0), new Vector(2.73, 1.08, 6.26));
-        assertNull("Ray's line is against edge", triangle.findIntersections(ray3));
+        assertNull("Ray's line is against vertex", triangle.findIntersections(ray3));
 
         // =============== Boundary Values Tests ==================
 

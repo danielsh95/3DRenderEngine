@@ -3,6 +3,7 @@ package geometries;
 import primitives.Point3D;
 import primitives.Ray;
 import primitives.Vector;
+
 import static primitives.Util.alignZero;
 import static primitives.Util.isZero;
 
@@ -32,10 +33,10 @@ public class Plane implements Geometry {
     }
 
     @Override
-    public List<Point3D> findIntersections(Ray ray){
-        Vector p0ToP;
+    public List<Point3D> findIntersections(Ray ray) {
+        Vector vP0ToP;
         try {
-            p0ToP = _p.subtract(ray.getPOO());
+            vP0ToP = _p.subtract(ray.getPOO());
         } catch (IllegalArgumentException e) {
             return null; //ray start from point on the plane - no intersections
         }
@@ -44,7 +45,7 @@ public class Plane implements Geometry {
         if (isZero(nDotV)) //ray is parallel to the plane - no intersections
             return null;
 
-        double t = alignZero(_normal.dotProduct(p0ToP) / nDotV);
+        double t = alignZero(_normal.dotProduct(vP0ToP) / nDotV);
         return t <= 0 ? null : List.of(ray.getPoint(t));
     }
 

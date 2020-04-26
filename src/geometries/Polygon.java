@@ -88,7 +88,37 @@ public class Polygon implements Geometry {
     }
 
     @Override
-    public List<Point3D> findIntersections(Ray ray){
-        return null;
+    public List<Point3D> findIntersections(Ray ray) {
+        List<Point3D> intersections = _plane.findIntersections(ray);
+        if (intersections == null) return null;
+
+        Point3D p0 = ray.getPOO();
+        Vector v = ray.getDirection();
+
+        Vector v1 = _vertices.get(0).subtract(p0);
+        Vector v2 = _vertices.get(1).subtract(p0);
+
+        double sign = alignZero(v.dotProduct(v1.crossProduct(v2)));
+        if (isZero(sign)) return null;
+
+        boolean checkSign = sign < 0 ? false : true;//to know sign if positive or negative
+        //loop on every vectors and checking if all of them are the same sign
+        for (int i = 1; i < _vertices.size() - 1; i++) {
+            Vector vI = _vertices.get(i).subtract(p0);
+            Vector vIPlus1 = _vertices.get(i + 1).subtract(p0);
+
+            sign = alignZero(v.dotProduct(vI.crossProduct(vIPlus1)));
+            if (isZero(sign)) return null;
+            if (!(checkSign && (sign > 0 ? true : false))) return null;//check if the sign is positive or negative
+        }
+
+        Vector vn = _vertices.get(_vertices.size() - 1).subtract(p0); //vn - p0
+
+        //check if vector n is also the same sign
+        sign = alignZero(v.dotProduct(vn.crossProduct(v1)));
+        if (isZero(sign)) return null;
+        if (!(checkSign && (sign > 0 ? true : false))) return null;
+
+        return intersections;
     }
 }

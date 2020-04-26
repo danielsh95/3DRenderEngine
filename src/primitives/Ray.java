@@ -13,7 +13,7 @@ public class Ray {
     /**
      * Constructor of Ray that contain Point3D and direction to object Ray
      *
-     * @param POO for starting point
+     * @param POO       for starting point
      * @param direction for direction vector
      **/
     public Ray(Point3D POO, Vector direction) {

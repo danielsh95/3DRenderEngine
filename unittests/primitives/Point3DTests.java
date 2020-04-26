@@ -6,7 +6,6 @@ import primitives.Vector;
 
 import static org.junit.Assert.*;
 
-
 /**
  * This unitTest for Point3D class
  **/

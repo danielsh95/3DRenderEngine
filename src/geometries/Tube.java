@@ -3,7 +3,9 @@ package geometries;
 import primitives.Point3D;
 import primitives.Ray;
 import primitives.Util;
+
 import static primitives.Util.isZero;
+
 import primitives.Vector;
 
 import java.util.List;
@@ -27,7 +29,7 @@ public class Tube extends RadialGeometry {
         double t = p0ToP.dotProduct(v);
 
         //check if projection is zero
-        if(isZero(t))
+        if (isZero(t))
             return p0ToP.normalize();
 
         Point3D o = _axisRay.getPOO().add(v.scale(t));
@@ -37,7 +39,7 @@ public class Tube extends RadialGeometry {
     }
 
     @Override
-    public List<Point3D> findIntersections(Ray ray){
+    public List<Point3D> findIntersections(Ray ray) {
         return null;
     }
 
