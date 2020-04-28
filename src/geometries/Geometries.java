@@ -4,7 +4,6 @@ import primitives.Point3D;
 import primitives.Ray;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 /**
