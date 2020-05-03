@@ -1,0 +1,51 @@
+<renderTest>
+    <scene
+            background-color="75 127 190"
+            screen-width="500"
+            screen-height="500"
+            screen-distance="100"
+    >
+        <ambient-light
+                color="255 191 191"
+                ka="1"
+        />
+        <camera
+                P0="0 0 0"
+                Vto="0 0 1"
+                Vup="0 -1 0"
+        />
+        <geometries>
+            <sphere
+                    center="0 0 100"
+                    radius="50"
+            />
+            <triangle
+                    p0="100 0 100"
+                    p1="0 100 100"
+                    p2="100 100 100"
+            />
+            <triangle
+                    p0="-100 0 100"
+                    p1="0 100 100"
+                    p2="-100 100 100"
+            />
+            <triangle
+                    p0="100 0 100"
+                    p1="0 -100 100"
+                    p2="100 -100 100"
+            />
+            <triangle
+                    p0="-100 0 100"
+                    p1="0 -100 100"
+                    p2="-100 -100 100"
+            />
+        </geometries>
+    </scene>
+    <ImageWriter
+            name="base render test2"
+            nx="500"
+            ny="500"
+            interval="50"
+    />
+
+</renderTest>
