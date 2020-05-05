@@ -6,8 +6,9 @@ import element.Camera;
 import geometries.Geometries;
 import geometries.Intersectable;
 
-
-
+/**
+ * scene class with geometries, camera, and light
+ **/
 public class Scene {
     private String _name;
     private Color _background;
@@ -16,53 +17,112 @@ public class Scene {
     private Camera _camera;
     private double _distance;
 
-
-    public Scene(String name){
+    /**
+     * Ctor of scene
+     *
+     * @param name of scene
+     **/
+    public Scene(String name) {
         _name = name;
         _geometries = new Geometries();
     }
 
-    public void addGeometries(Intersectable...geometries){
+    /**
+     * Add one or more geometries to scene
+     *
+     * @param geometries one or more geometries
+     **/
+    public void addGeometries(Intersectable... geometries) {
         _geometries.add(geometries);
     }
 
+    /**
+     * Get the name of scene
+     *
+     * @return name
+     **/
     public String getName() {
         return _name;
     }
 
+    /**
+     * Get the background color of scene
+     *
+     * @return background color
+     **/
     public Color getBackground() {
         return _background;
     }
 
+    /**
+     * Get the ambientLight of scene
+     *
+     * @return ambientLight
+     **/
     public AmbientLight getAmbientLight() {
         return _ambientLight;
     }
 
+    /**
+     * Get the geometries of scene
+     *
+     * @return geometries
+     **/
     public Geometries getGeometries() {
         return _geometries;
     }
 
+    /**
+     * Get the camera of scene
+     *
+     * @return camera
+     **/
     public Camera getCamera() {
         return _camera;
     }
 
+    /**
+     * Get the distance of scene
+     *
+     * @return distance
+     **/
     public double getDistance() {
         return _distance;
     }
 
-    public void setBackground(Color _background) {
-        this._background = _background;
+    /**
+     * Set background to scene
+     *
+     * @param background set a new background to scene
+     **/
+    public void setBackground(Color background) {
+        _background = background;
     }
 
-    public void setAmbientLight(AmbientLight _ambientLight) {
-        this._ambientLight = _ambientLight;
+    /**
+     * Set ambientLight to scene
+     *
+     * @param ambientLight set a new ambientLight to scene
+     **/
+    public void setAmbientLight(AmbientLight ambientLight) {
+        _ambientLight = ambientLight;
     }
 
-    public void setCamera(Camera _camera) {
-        this._camera = _camera;
+    /**
+     * Set camera to scene
+     *
+     * @param camera set a new camera to scene
+     **/
+    public void setCamera(Camera camera) {
+        _camera = camera;
     }
 
-    public void setDistance(double _distance) {
-        this._distance = _distance;
+    /**
+     * Set distance to scene
+     *
+     * @param distance set a new distance to scene
+     **/
+    public void setDistance(double distance) {
+        _distance = distance;
     }
 }
