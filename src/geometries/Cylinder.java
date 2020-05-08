@@ -6,9 +6,11 @@ import primitives.Ray;
 import primitives.Util;
 
 import static primitives.Util.isZero;
+import static primitives.Util.alignZero;
 
 import primitives.Vector;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -43,7 +45,52 @@ public class Cylinder extends Tube {
 
     @Override
     public List<Point3D> findIntersections(Ray ray) {
-        return null;
+        List<Point3D> intersectionsWithTube = super.findIntersections(ray);
+        Vector axisDirection = _axisRay.getDirection();
+        // the point is at the center of the circle on the top base.
+        Point3D pToHeight = _axisRay.getPoint(_height);
+        Point3D p0 = _axisRay.getPOO();
+
+        // plane of up cylinder and plane down cylinder
+        Plane planeUp = new Plane(pToHeight, axisDirection);
+        Plane planeDown = new Plane(p0, _axisRay.getDirection().scale(-1));
+
+        // check if the point that on the tube is on the cylinder.
+        List<Point3D> intersectionsWithCylinder = new ArrayList<Point3D>();
+        if (intersectionsWithTube != null) {
+            for (int i = 0; i < intersectionsWithTube.size(); i++) {
+                double projection = alignZero(intersectionsWithTube.get(i).subtract(p0).dotProduct(axisDirection));
+                if (projection < _height && projection > 0)
+                    intersectionsWithCylinder.add(intersectionsWithTube.get(i));
+            }
+        }
+
+        //intersection with plane upd and down of cylinder
+        List<Point3D> intersectionsWithPlaneUp = planeUp.findIntersections(ray);
+        List<Point3D> intersectionsWithPlaneDown = planeDown.findIntersections(ray);
+
+        // if not have intersections
+        if (intersectionsWithPlaneUp == null && intersectionsWithPlaneDown == null)
+            return intersectionsWithCylinder.size() > 0 ? intersectionsWithCylinder : null;
+
+        // check if have some intersection in the plane up , if yes add to intersectionsWithCylinder
+        if (intersectionsWithPlaneUp != null) {
+            Point3D intersectPointWIthPlane = intersectionsWithPlaneUp.get(0);
+            double distance = alignZero(intersectPointWIthPlane.distance(pToHeight));
+            if (distance < _radius)
+                intersectionsWithCylinder.add(intersectPointWIthPlane);
+        }
+
+        // check if have some intersection in the plane down , if yes add to intersectionsWithCylinder
+        if (intersectionsWithPlaneDown != null) {
+            Point3D intersectPointWIthPlane = intersectionsWithPlaneDown.get(0);
+            double distance = alignZero(intersectPointWIthPlane.distance(_axisRay.getPOO()));
+            if (distance < _radius)
+                intersectionsWithCylinder.add(intersectPointWIthPlane);
+        }
+
+        // check if there is intersection if not return null
+        return intersectionsWithCylinder.size() > 0 ? intersectionsWithCylinder : null;
     }
 
     /**
