@@ -5,25 +5,16 @@ import primitives.Color;
 /**
  * class for color
  **/
-public class AmbientLight {
-    private Color _intensity;
+public class AmbientLight extends Light {
 
     /**
-     * constractor for color
+     * constructor for color - (Ia * Ka)
      *
      * @param ia color
      * @param ka intensity
      **/
     public AmbientLight(Color ia, double ka) {
-        _intensity = ia.scale(ka);
+        super(ia.scale(ka));
     }
 
-    /**
-     * get intensity
-     *
-     * @return intensity
-     **/
-    public java.awt.Color GetIntensity() {
-        return _intensity.getColor();
-    }
 }

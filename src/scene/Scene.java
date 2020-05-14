@@ -1,10 +1,14 @@
 package scene;
 
+import element.LightSource;
 import primitives.Color;
 import element.AmbientLight;
 import element.Camera;
 import geometries.Geometries;
 import geometries.Intersectable;
+
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * scene class with geometries, camera, and light
@@ -16,6 +20,7 @@ public class Scene {
     private Geometries _geometries;
     private Camera _camera;
     private double _distance;
+    private List<LightSource> _lights;
 
     /**
      * Ctor of scene
@@ -25,6 +30,7 @@ public class Scene {
     public Scene(String name) {
         _name = name;
         _geometries = new Geometries();
+        _lights = new LinkedList<LightSource>();
     }
 
     /**
@@ -43,6 +49,25 @@ public class Scene {
      **/
     public String getName() {
         return _name;
+    }
+
+    /**
+     * Get lightsSource list
+     *
+     * @return lightsSource list
+     **/
+    public List<LightSource> getLights() {
+        return _lights;
+    }
+
+    /**
+     * Add some lightSource to list
+     *
+     * @param lights some LightSource
+     **/
+    public void addLights(LightSource... lights) {
+        for (LightSource lightSource : lights)
+            _lights.add(lightSource);
     }
 
     /**

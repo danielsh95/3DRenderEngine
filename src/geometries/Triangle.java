@@ -1,11 +1,10 @@
 package geometries;
 
-import primitives.Point3D;
-import primitives.Ray;
-import primitives.Vector;
+import primitives.*;
 
 import static primitives.Util.isZero;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -14,19 +13,44 @@ import java.util.List;
 public class Triangle extends Polygon {
 
     /**
-     * Constructor for triangle by three points
+     * Constructor for triangle
+     *
+     * @param material
+     * @param emissionLight
+     * @param point3D_1     point 1 of triangle
+     * @param point3D_2     point 2 of triangle
+     * @param point3D_3     point 3 of triangle
+     */
+    public Triangle(Material material, Color emissionLight, Point3D point3D_1, Point3D point3D_2, Point3D point3D_3) {
+        super(material, emissionLight, point3D_1, point3D_2, point3D_3);
+    }
+
+    /**
+     * Constructor for triangle
+     *
+     * @param emissionLight
+     * @param point3D_1     point 1 of triangle
+     * @param point3D_2     point 2 of triangle
+     * @param point3D_3     point 3 of triangle
+     */
+    public Triangle(Color emissionLight, Point3D point3D_1, Point3D point3D_2, Point3D point3D_3) {
+        this(new Material(0, 0, 0), emissionLight, point3D_1, point3D_2, point3D_3);
+    }
+
+    /**
+     * Constructor for triangle
      *
      * @param point3D_1 point 1 of triangle
      * @param point3D_2 point 2 of triangle
      * @param point3D_3 point 3 of triangle
      */
     public Triangle(Point3D point3D_1, Point3D point3D_2, Point3D point3D_3) {
-        super(point3D_1, point3D_2, point3D_3);
+        this(Color.BLACK, point3D_1, point3D_2, point3D_3);
     }
 
     @Override
-    public List<Point3D> findIntersections(Ray ray) {
-        List<Point3D> intersectionsOfPlane = _plane.findIntersections(ray);
+    public List<GeoPoint> findIntersections(Ray ray) {
+        List<GeoPoint> intersectionsOfPlane = _plane.findIntersections(ray);
         if (intersectionsOfPlane == null)
             return null;//out of plane - not intersections
 
@@ -49,8 +73,14 @@ public class Triangle extends Polygon {
             return null;
 
         //Check if all the projV is same sign
-        if ((projV1 > 0 && projV2 > 0 && projV3 > 0) || (projV1 < 0 && projV2 < 0 && projV3 < 0))
-            return intersectionsOfPlane;
-        else return null;
+        if ((projV1 > 0 && projV2 > 0 && projV3 > 0) || (projV1 < 0 && projV2 < 0 && projV3 < 0)) {
+
+            //update intersections to be geometry of polygon
+            List<GeoPoint> intersectionsOfTriangle = new ArrayList<>();
+            for (GeoPoint g : intersectionsOfPlane) {
+                intersectionsOfTriangle.add(new GeoPoint(this, g.point));
+            }
+            return intersectionsOfTriangle;
+        } else return null;
     }
 }

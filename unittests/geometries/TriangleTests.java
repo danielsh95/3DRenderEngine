@@ -4,7 +4,9 @@ import org.junit.Test;
 import primitives.Point3D;
 import primitives.Ray;
 import primitives.Vector;
+import geometries.Intersectable.GeoPoint;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -29,14 +31,12 @@ public class TriangleTests {
     @Test
     public void testFindIntersections() {
         Triangle triangle = new Triangle(new Point3D(5, 0, 0), new Point3D(0, 5, 0), new Point3D(0, 0, 5));
-
         // ============ Equivalence Partitions Tests ==============
 
         // TC01: Ray's line is intersection with the Triangle (1 points)
         Ray ray1 = new Ray(new Point3D(1.95, 0, 0), new Vector(0.16, 0.33, 2));
         assertEquals("Ray's line is intersection with the Triangle",
-                List.of(new Point3D(2.1459839357429717, 0.4042168674698794, 2.449799196787148)), triangle.findIntersections(ray1));
-
+                List.of(new GeoPoint(triangle,new Point3D(2.1459839357429717, 0.4042168674698794, 2.449799196787148))), triangle.findIntersections(ray1));
         // TC02: Ray's line is against edge (0 points)
         Ray ray2 = new Ray(new Point3D(6.76, 4.91, 4.89), new Vector(-2.38, -1.39, -4.02));
         assertNull("Ray's line is against edge", triangle.findIntersections(ray2));

@@ -1,13 +1,9 @@
 package geometries;
 
-import primitives.Point3D;
-import primitives.Ray;
-import primitives.Util;
+import primitives.*;
 
 import static primitives.Util.isZero;
 import static primitives.Util.alignZero;
-
-import primitives.Vector;
 
 import java.util.List;
 
@@ -18,6 +14,40 @@ public class Tube extends RadialGeometry {
     protected Ray _axisRay;
 
     /**
+     * Constructor for Tube by using axis and radius
+     *
+     * @param material
+     * @param emissionLight
+     * @param axisRay       ray in the tube
+     * @param radius        radius to tube
+     */
+    public Tube(Material material, Color emissionLight, Ray axisRay, double radius) {
+        super(material, emissionLight, radius);
+        _axisRay = axisRay;
+    }
+
+    /**
+     * Constructor for Tube by using axis and radius
+     *
+     * @param emissionLight
+     * @param axisRay       ray in the tube
+     * @param radius        radius to tube
+     */
+    public Tube(Color emissionLight, Ray axisRay, double radius) {
+        this(new Material(0, 0, 0), emissionLight, axisRay, radius);
+    }
+
+    /**
+     * Constructor for Tube by using axis and radius
+     *
+     * @param axisRay ray in the tube
+     * @param radius  radius to tube
+     */
+    public Tube(Ray axisRay, double radius) {
+        this(Color.BLACK, axisRay, radius);
+    }
+
+    /**
      * GetNormal to Tube
      *
      * @param point3D point in the tube
@@ -25,29 +55,33 @@ public class Tube extends RadialGeometry {
      **/
     @Override
     public Vector getNormal(Point3D point3D) {
-        Vector p0ToP = point3D.subtract(_axisRay.getPOO());
+        //The vector from the point of the tube to the given point
+        Point3D p0 = _axisRay.getPOO(); // p0
         Vector v = _axisRay.getDirection();
-        double t = p0ToP.dotProduct(v);
 
-        //check if projection is zero
-        if (isZero(t))
-            return p0ToP.normalize();
+        Vector vector1 = point3D.subtract(p0);
 
-        Point3D o = _axisRay.getPOO().add(v.scale(t));
-        Vector n = point3D.subtract(o).normalize();
+        //projection to multiply the _direction unit vector
+        double projection = vector1.dotProduct(v);
+        if (!isZero(projection)) {
+            // projection of P-p0 on the ray:
+            p0 = p0.add(v.scale(projection));
+        }
 
-        return n;
+        //This vector is orthogonal to the _direction vector.
+        Vector check = point3D.subtract(p0);
+        return check.normalize();
     }
 
     @Override
-    public List<Point3D> findIntersections(Ray ray) {
+    public List<GeoPoint> findIntersections(Ray ray) {
         Vector v = ray.getDirection();
         Point3D p = ray.getPOO();
         Vector va = _axisRay.getDirection();
         Point3D Pa = _axisRay.getPOO();
         Vector deltaP = null;// p-pa equal to deltaP.
         Vector temp;// v-(v,va) * va -- auxiliary calculation.
-        double a,b,c;
+        double a, b, c;
         double t1, t2;
         try {
             temp = v.subtract(va.scale(v.dotProduct(va)));
@@ -109,32 +143,22 @@ public class Tube extends RadialGeometry {
             // if the start point of the ray is outside the tube,can't be solution.
             if (p.distance(Pa) > _radius)
                 return null;
-            return t1 > 0 ? List.of(ray.getPoint(t1)) : null;
+            return t1 > 0 ? List.of(new GeoPoint(this, ray.getPoint(t1))) : null;
         }
 
         t1 = alignZero(-b + discriminant) / (2d * a);
         t2 = alignZero(-b - discriminant) / (2d * a);
 
         if (t1 > 0 & t2 > 0) {
-            return List.of(ray.getPoint(t1), ray.getPoint(t2));
+            return List.of(new GeoPoint(this, ray.getPoint(t1)), new GeoPoint(this, ray.getPoint(t2)));
         } else if (t1 > 0) {
-            return List.of(ray.getPoint(t1));
+            return List.of(new GeoPoint(this, ray.getPoint(t1)));
         } else if (t2 > 0) {
-            return List.of(ray.getPoint(t2));
+            return List.of(new GeoPoint(this, ray.getPoint(t2)));
         }
         return null;
     }
 
-    /**
-     * Constructor for Tube by using axis and radius
-     *
-     * @param axisRay ray in the tube
-     * @param radius  radius to tube
-     */
-    public Tube(Ray axisRay, double radius) {
-        super(radius);
-        _axisRay = axisRay;
-    }
 
     @Override
     public double getRadius() {

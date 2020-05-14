@@ -6,7 +6,9 @@ import org.junit.Test;
 
 import geometries.*;
 import primitives.*;
+import geometries.Intersectable.GeoPoint;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -110,7 +112,7 @@ public class PolygonTests {
         // TC01: Ray's line is intersection with the Polygon (1 points)
         Ray ray1 = new Ray(new Point3D(-3.53, 2.31, 1.5), new Vector(6.07, -0.02, 0.47));
         assertEquals("Ray's line is intersection with the Polygon",
-                List.of(new Point3D(2.5377206158467893, 2.2900075103266992, 1.9698235073225685)), polygon.findIntersections(ray1));
+                List.of(new GeoPoint(polygon, new Point3D(2.5377206158467893, 2.2900075103266992, 1.9698235073225685))), polygon.findIntersections(ray1));
 
         // TC02: Ray's line is against edge (0 points)
         Ray ray2 = new Ray(new Point3D(-3.53, 2.31, 1.5), new Vector(5.5, 4.24, 0.92));

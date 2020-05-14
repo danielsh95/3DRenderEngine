@@ -1,11 +1,8 @@
 package geometries;
 
-import primitives.Point3D;
-import primitives.Ray;
+import primitives.*;
 
 import static primitives.Util.alignZero;
-
-import primitives.Vector;
 
 import java.util.List;
 
@@ -27,7 +24,7 @@ public class Sphere extends RadialGeometry {
     }
 
     @Override
-    public List<Point3D> findIntersections(Ray ray) {
+    public List<GeoPoint> findIntersections(Ray ray) {
         Point3D p0 = ray.getPOO();
         Vector v = ray.getDirection();
         Vector u;
@@ -35,7 +32,7 @@ public class Sphere extends RadialGeometry {
             u = _center.subtract(p0);
         } catch (IllegalArgumentException e) {
             //p0 start in the center
-            return List.of(ray.getPoint(_radius));
+            return List.of(new GeoPoint(this, ray.getPoint(_radius)));
         }
         double tm = alignZero(v.dotProduct(u));
         double dSquare = (tm == 0) ? u.lengthSquared() : u.lengthSquared() - tm * tm;
@@ -52,11 +49,36 @@ public class Sphere extends RadialGeometry {
         if (t1 <= 0 && t2 <= 0) return null;//not have intersections
 
         //there are two intersections points
-        if (t1 > 0 && t2 > 0) return List.of(ray.getPoint(t1), ray.getPoint(t2));
+        if (t1 > 0 && t2 > 0) return List.of(new GeoPoint(this, ray.getPoint(t1)),
+                new GeoPoint(this, ray.getPoint(t2)));
         if (t1 > 0)//one intersection point
-            return List.of(ray.getPoint(t1));
+            return List.of(new GeoPoint(this, ray.getPoint(t1)));
         else//one intersection point
-            return List.of(ray.getPoint(t2));
+            return List.of(new GeoPoint(this, ray.getPoint(t2)));
+    }
+
+    /**
+     * This Sphere class implement from RadialGeometry to achieve sphere
+     *
+     * @param material
+     * @param emissionLight
+     * @param center        point center of sphere
+     * @param radius        radius of sphere
+     */
+    public Sphere(Material material, Color emissionLight, Point3D center, double radius) {
+        super(material, emissionLight, radius);
+        _center = center;
+    }
+
+    /**
+     * This Sphere class implement from RadialGeometry to achieve sphere
+     *
+     * @param emissionLight
+     * @param center        point center of sphere
+     * @param radius        radius of sphere
+     */
+    public Sphere(Color emissionLight, Point3D center, double radius) {
+        this(new Material(0, 0, 0), emissionLight, center, radius);
     }
 
     /**
@@ -66,9 +88,19 @@ public class Sphere extends RadialGeometry {
      * @param radius radius of sphere
      */
     public Sphere(Point3D center, double radius) {
-        super(radius);
-        _center = center;
+        this(Color.BLACK, center, radius);
     }
+
+    //  /**
+    //   * This Sphere class implement from RadialGeometry to achieve sphere
+    //   *
+    //   * @param emissionLight color in the geometry
+    //   * @param center        point center of sphere
+    //   * @param radius        radius of sphere
+    //   */
+    //  public Sphere(Color emissionLight, Point3D center, double radius) {
+    //      this(center, radius);
+    //  }
 
     /**
      * Get center of Sphere

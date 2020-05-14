@@ -1,17 +1,21 @@
 package renderer;
 
 import element.Camera;
+import element.LightSource;
 import geometries.Intersectable;
-import primitives.Point3D;
-import primitives.Ray;
+
+import primitives.*;
 import scene.Scene;
 
-import java.awt.*;
 import java.util.List;
+
+import geometries.Intersectable.GeoPoint;
+
+import static primitives.Util.alignZero;
 
 /**
  * Engine for create image from scene
- * **/
+ **/
 public class Render {
     private ImageWriter _imageWriter;
     private Scene _scene;
@@ -21,7 +25,7 @@ public class Render {
      *
      * @param imageWriter
      * @param scene
-     * **/
+     **/
     public Render(ImageWriter imageWriter, Scene scene) {
         _scene = scene;
         _imageWriter = imageWriter;
@@ -29,8 +33,7 @@ public class Render {
 
     /**
      * method that paint the image
-     *
-     * **/
+     **/
     public void renderImage() {
 
         //get details from scene
@@ -50,12 +53,12 @@ public class Render {
         for (int i = 0; i < nY; i++) {
             for (int j = 0; j < nX; j++) {
                 Ray ray = camera.constructRayThroughPixel(nX, nY, i, j, distance, width, height);
-                List<Point3D> result = geometries.findIntersections(ray);
+                List<GeoPoint> result = geometries.findIntersections(ray);
                 if (result == null) {
                     _imageWriter.writePixel(i, j, background);
                 } else {
-                    Point3D nearly = getClosestPoint(result);
-                    _imageWriter.writePixel(i, j, calcColor(nearly));
+                    GeoPoint nearly = getClosestPoint(result);
+                    _imageWriter.writePixel(i, j, calcColor(nearly).getColor());
                 }
             }
         }
@@ -64,11 +67,50 @@ public class Render {
     /**
      * Method to get the color of ambientLight
      *
-     * @param p point for paint
+     * @param geoPoint geoPoint for paint
      * @return intensity of color
-     * **/
-    public Color calcColor(Point3D p) {
-        return _scene.getAmbientLight().GetIntensity();
+     **/
+    public Color calcColor(GeoPoint geoPoint) {
+
+        Color result = _scene.getAmbientLight().getIntensity();
+        result = result.add(geoPoint.geometry.getEmission());
+        List<LightSource> lights = _scene.getLights();
+
+        Vector v = geoPoint.point.subtract(_scene.getCamera().getP0()).normalize();
+        Vector n = geoPoint.geometry.getNormal(geoPoint.point);
+
+        Material material = geoPoint.geometry.getMaterial();
+        int nShininess = material.getNShininess();
+        double kd = material.getKD();
+        double ks = material.getKS();
+        if (_scene.getLights() != null) {
+            for (LightSource lightSource : lights) {
+
+                Vector l = lightSource.getL(geoPoint.point);
+                double nl = alignZero(n.dotProduct(l));
+                double nv = alignZero(n.dotProduct(v));
+
+                if (sign(nl) == sign(nv)) {
+                    Color ip = lightSource.getIntensity(geoPoint.point);
+                    result = result.add(
+                            calcDiffusive(kd, nl, ip),
+                            calcSpecular(ks, l, n, nl, v, nShininess, ip)
+                    );
+                }
+            }
+        }
+
+        return result;
+    }
+
+    /**
+     * check if the number is sign
+     *
+     * @param val value to check
+     * @return result
+     **/
+    private boolean sign(double val) {
+        return (val > 0d);
     }
 
     /**
@@ -76,17 +118,17 @@ public class Render {
      *
      * @param points list of points
      * @return closest point
-     * **/
-    public Point3D getClosestPoint(List<Point3D> points) {
-        Point3D closesPoint = null;
+     **/
+    public GeoPoint getClosestPoint(List<GeoPoint> points) {
+        GeoPoint closesPoint = null;
         Point3D p0 = _scene.getCamera().getP0();
         double minDistance = Double.MAX_VALUE;
 
-        for (Point3D p : points) {
-            double distance = p0.distance(p);
+        for (GeoPoint geoPoint : points) {
+            double distance = p0.distance(geoPoint.point);
             if (distance < minDistance) {
                 minDistance = distance;
-                closesPoint = p;
+                closesPoint = geoPoint;
             }
         }
         return closesPoint;
@@ -96,8 +138,8 @@ public class Render {
      * Write color to image a new overload grids by interval
      *
      * @param interval interval of some points to write in the matrix
-     * @param color color to paint
-     * **/
+     * @param color    color to paint
+     **/
     public void printGrid(int interval, java.awt.Color color) {
 
         int nX = _imageWriter.getNx();
@@ -112,11 +154,44 @@ public class Render {
         }
     }
 
-/**
- * Create a new file of image and write to it
- *
- * **/
+    /**
+     * Create a new file of image and write to it
+     **/
     public void writeToImage() {
         _imageWriter.writeToImage();
+    }
+
+    /**
+     * Calc diffusing
+     *
+     * @param kd pre diffuse
+     * @param nl the angle between normal in the point to L
+     * @param ip light in the point
+     **/
+    private Color calcDiffusive(double kd, double nl, Color ip) {
+        if (nl < 0) nl = -nl;
+        return ip.scale(nl * kd);
+    }
+
+    /**
+     * Get the color of the specular
+     *
+     * @param ks pre specular
+     * @param l vector from light to point in the geometry
+     * @param n normal in the point
+     * @param nl the angle between normal in the point to L
+     * @param v normalize vector form camera to point in geometry
+     * @param nShininess n Shininess
+     * @param ip light in the point
+     **/
+    private Color calcSpecular(double ks, Vector l, Vector n, double nl, Vector v, int nShininess, Color ip) {
+        double p = nShininess;
+
+        Vector R = l.add(n.scale(-2 * nl)); // nl must not be zero!
+        double minusVR = -alignZero(R.dotProduct(v));
+        if (minusVR <= 0) {
+            return Color.BLACK; // view from direction opposite to r vector
+        }
+        return ip.scale(ks * Math.pow(minusVR, p));
     }
 }

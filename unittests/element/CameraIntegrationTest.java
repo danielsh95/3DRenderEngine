@@ -3,6 +3,7 @@ package element;
 import static org.junit.Assert.*;
 
 import geometries.Intersectable;
+import geometries.Intersectable.GeoPoint;
 import geometries.Plane;
 import geometries.Sphere;
 import geometries.Triangle;
@@ -22,7 +23,7 @@ public class CameraIntegrationTest {
     /**
      * find intersections of ray that through pixels to geometry
      *
-     * @param intersectable
+     * @param intersectable geometry
      * @param camera
      * @return amount of intersections
      **/
@@ -32,7 +33,7 @@ public class CameraIntegrationTest {
         int nY = 3;
 
         //loop for every pixel in the view model
-        List<Point3D> result;
+        List<GeoPoint> result;
         for (int i = 0; i < nY; i++) {
             for (int j = 0; j < nX; j++) {
                 result = intersectable.findIntersections(camera.constructRayThroughPixel(nX, nY, j, i,
