@@ -4,7 +4,7 @@ package primitives;
  * This Vector class to represent Vector
  **/
 public class Vector {
-    private Point3D head;
+    private Point3D _head;
 
     /**
      * constructor of Vector
@@ -16,7 +16,7 @@ public class Vector {
         if (head.equals(Point3D.ZERO)) {
             throw new IllegalArgumentException("Vector can't be (0,0,0)");
         }
-        this.head = head;
+        this._head = head;
     }
 
     /**
@@ -31,7 +31,7 @@ public class Vector {
         if (new Point3D(x, y, z).equals(Point3D.ZERO)) {
             throw new IllegalArgumentException("Vector can't be (0,0,0)");
         }
-        head = new Point3D(x, y, z);
+        _head = new Point3D(x, y, z);
     }
 
     /**
@@ -44,7 +44,7 @@ public class Vector {
         if (vector.getHead().equals(Point3D.ZERO)) {
             throw new IllegalArgumentException("Vector can't be (0,0,0)");
         }
-        this.head = vector.getHead();
+        this._head = vector.getHead();
     }
 
     /**
@@ -59,7 +59,7 @@ public class Vector {
         if (new Point3D(x, y, z).equals(Point3D.ZERO)) {
             throw new IllegalArgumentException("Vector can't be (0,0,0)");
         }
-        this.head = new Point3D(x, y, z);
+        this._head = new Point3D(x, y, z);
     }
 
     /**
@@ -68,7 +68,7 @@ public class Vector {
      * @return head
      **/
     public Point3D getHead() {
-        return head;
+        return _head;
     }
 
     @Override
@@ -77,12 +77,12 @@ public class Vector {
         if (obj == null) return false;
         if (!(obj instanceof Vector)) return false;
         Vector vector = (Vector) obj;
-        return head.equals(vector.head);
+        return _head.equals(vector._head);
     }
 
     @Override
     public String toString() {
-        return " head: " + head;
+        return " head: " + _head;
 
     }
 
@@ -93,7 +93,7 @@ public class Vector {
      * @return Vector after subtract
      **/
     public Vector subtract(Vector vector) {
-        return this.head.subtract(vector.getHead());
+        return this._head.subtract(vector.getHead());
     }
 
     /**
@@ -103,7 +103,7 @@ public class Vector {
      * @return vector after Added to new object
      **/
     public Vector add(Vector vector) {
-        return new Vector(this.head.add(vector));
+        return new Vector(this._head.add(vector));
     }
 
     /**
@@ -113,9 +113,9 @@ public class Vector {
      * @return A new vector after multiplying the scalar
      **/
     public Vector scale(double scalar) {
-        double newX = this.head.getX().get() * scalar;
-        double newY = this.head.getY().get() * scalar;
-        double newZ = this.head.getZ().get() * scalar;
+        double newX = this._head.getX().get() * scalar;
+        double newY = this._head.getY().get() * scalar;
+        double newZ = this._head.getZ().get() * scalar;
 
         return new Vector(newX, newY, newZ);
     }
@@ -127,9 +127,9 @@ public class Vector {
      * @return double of dot product
      **/
     public double dotProduct(Vector vector) {
-        double doubleX = this.head.getX().get() * vector.head.getX().get();
-        double doubleY = this.head.getY().get() * vector.head.getY().get();
-        double doubleZ = this.head.getZ().get() * vector.head.getZ().get();
+        double doubleX = this._head.getX().get() * vector._head.getX().get();
+        double doubleY = this._head.getY().get() * vector._head.getY().get();
+        double doubleZ = this._head.getZ().get() * vector._head.getZ().get();
         return doubleX + doubleY + doubleZ;
     }
 
@@ -162,9 +162,9 @@ public class Vector {
      * @return double
      **/
     public double lengthSquared() {
-        double x = this.head.getX().get();
-        double y = this.head.getY().get();
-        double z = this.head.getZ().get();
+        double x = this._head.getX().get();
+        double y = this._head.getY().get();
+        double z = this._head.getZ().get();
 
         return x * x + y * y + z * z;
     }
@@ -184,11 +184,11 @@ public class Vector {
      * @return Vector of this object after normalize
      **/
     public Vector normalize() {
-        double normalizeX = this.head.getX().get() / length();
-        double normalizeY = this.head.getY().get() / length();
-        double normalizeZ = this.head.getZ().get() / length();
+        double normalizeX = this._head.getX().get() / length();
+        double normalizeY = this._head.getY().get() / length();
+        double normalizeZ = this._head.getZ().get() / length();
 
-        this.head = new Point3D(normalizeX, normalizeY, normalizeZ);
+        this._head = new Point3D(normalizeX, normalizeY, normalizeZ);
         return this;
     }
 

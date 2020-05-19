@@ -20,7 +20,7 @@ public class Geometries implements Intersectable {
     }
 
     /**
-     * constractor for the geometries
+     * constructor for the geometries
      *
      * @param geometries list of geometries
      **/

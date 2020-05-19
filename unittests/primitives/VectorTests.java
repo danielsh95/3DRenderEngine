@@ -1,9 +1,7 @@
 package primitives;
 
 import org.junit.Test;
-import primitives.Vector;
 
-import static java.lang.System.out;
 import static org.junit.Assert.*;
 import static primitives.Util.isZero;
 

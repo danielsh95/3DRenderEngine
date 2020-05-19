@@ -7,7 +7,7 @@ import primitives.Vector;
 import static primitives.Util.isZero;
 
 /**
- * class for camera that will see geometry by view plane
+ * class for a camera that will see geometry by view plane
  **/
 public class Camera {
     private Point3D _p0;
@@ -16,14 +16,14 @@ public class Camera {
     private Vector _vRight;
 
     /**
-     * constractor for camera
+     * constructor for camera
      *
      * @param p0
      * @param vUp
      * @param vTo
      **/
     public Camera(Point3D p0, Vector vTo, Vector vUp) {
-        if (!isZero(vTo.dotProduct(vUp))) throw new IllegalArgumentException("vectors are not ortogonal");
+        if (!isZero(vTo.dotProduct(vUp))) throw new IllegalArgumentException("vectors are not orthogonal");
         _p0 = p0;
         _vUp = vUp.normalized();
         _vTo = vTo.normalize();
@@ -33,8 +33,8 @@ public class Camera {
     /**
      * Get Ray for every point that on the view plane
      *
-     * @param i              the location of p in axis x
-     * @param i              the location of p in axis y
+     * @param i              the location of p in an axis x
+     * @param i              the location of p in an axis y
      * @param nX             pixels of axis x
      * @param nY             pixels of axis y
      * @param screenDistance distance from p0 to view plane

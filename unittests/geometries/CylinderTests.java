@@ -8,7 +8,6 @@ import geometries.Intersectable.GeoPoint;
 
 import static org.junit.Assert.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -45,7 +44,7 @@ public class CylinderTests {
         Ray ray = new Ray(new Point3D(1.75, 0, -1), new Vector(0, 0, 1));
         List<GeoPoint> result = cylinder.findIntersections(ray);
         assertEquals("Wrong number of points", 2, result.size());
-        if (result.get(0).point.getZ().get() > result.get(1).point.getZ().get())
+        if (result.get(0)._point.getZ().get() > result.get(1)._point.getZ().get())
             result = List.of(result.get(1), result.get(0));
         assertEquals("Worng points", List.of(new GeoPoint(cylinder, new Point3D(1.75, 0, 0))
                 , new GeoPoint(cylinder, new Point3D(1.75, 0, 10))),
@@ -54,7 +53,7 @@ public class CylinderTests {
         ray = new Ray(new Point3D(0, 0, 2), new Vector(1, 0, 1));
         result = cylinder.findIntersections(ray);
         assertEquals("Wrong number of points", 2, result.size());
-        if (result.get(0).point.getZ().get() > result.get(1).point.getZ().get())
+        if (result.get(0)._point.getZ().get() > result.get(1)._point.getZ().get())
             result = List.of(result.get(1), result.get(0));
         assertEquals("Worng points", List.of(new GeoPoint(cylinder, new Point3D(1, 0, 3))
                 , new GeoPoint(cylinder, new Point3D(3, 0, 5))),
@@ -64,7 +63,7 @@ public class CylinderTests {
         ray = new Ray(new Point3D(0, 0, 8), new Vector(1, 0, 1));
         result = cylinder.findIntersections(ray);
         assertEquals("Wrong number of points", 2, result.size());
-        if (result.get(0).point.getZ().get() > result.get(1).point.getZ().get())
+        if (result.get(0)._point.getZ().get() > result.get(1)._point.getZ().get())
             result = List.of(result.get(1), result.get(0));
         assertEquals("Worng points", List.of(new GeoPoint(cylinder, new Point3D(1, 0, 9))
                 , new GeoPoint(cylinder, new Point3D(2, 0, 10))),
@@ -89,7 +88,7 @@ public class CylinderTests {
         ray = new Ray(new Point3D(2.5, 0, -10), new Vector(0, 0, 1));
         result = cylinder.findIntersections(ray);
         assertEquals("Wrong number of points", 2, result.size());
-        if (result.get(0).point.getZ().get() > result.get(1).point.getZ().get())
+        if (result.get(0)._point.getZ().get() > result.get(1)._point.getZ().get())
             result = List.of(result.get(1), result.get(0));
         assertEquals("Worng points", List.of(new GeoPoint(cylinder, new Point3D(2.5, 0, 0)),
                 new GeoPoint(cylinder, new Point3D(2.5, 0, 10))),
@@ -144,7 +143,7 @@ public class CylinderTests {
         ray = new Ray(new Point3D(0, 0, 5), new Vector(1, 0, 0));
         result = cylinder.findIntersections(ray);
         assertEquals("Wrong number of points", 2, result.size());
-        if (result.get(0).point.getX().get() > result.get(1).point.getX().get())
+        if (result.get(0)._point.getX().get() > result.get(1)._point.getX().get())
             result = List.of(result.get(1), result.get(0));
         assertEquals("Worng points", List.of(new GeoPoint(cylinder, new Point3D(1, 0, 5)),
                 new GeoPoint(cylinder, new Point3D(3, 0, 5))), result);
@@ -170,8 +169,5 @@ public class CylinderTests {
         ray = new Ray(new Point3D(1, 4, 10), new Vector(0, -1, 0));
         result = cylinder.findIntersections(ray);
         assertNull("should be null", result);
-
     }
-
-
 }

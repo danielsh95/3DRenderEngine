@@ -13,6 +13,40 @@ public class Sphere extends RadialGeometry {
     private Point3D _center;
 
     /**
+     * This Sphere class implement from RadialGeometry to achieve sphere
+     *
+     * @param material
+     * @param emissionLight
+     * @param center        point center of sphere
+     * @param radius        radius of sphere
+     */
+    public Sphere(Material material, Color emissionLight, Point3D center, double radius) {
+        super(material, emissionLight, radius);
+        _center = center;
+    }
+
+    /**
+     * This Sphere class implement from RadialGeometry to achieve sphere
+     *
+     * @param emissionLight
+     * @param center        point center of sphere
+     * @param radius        radius of sphere
+     */
+    public Sphere(Color emissionLight, Point3D center, double radius) {
+        this(new Material(0, 0, 0), emissionLight, center, radius);
+    }
+
+    /**
+     * This Sphere class implement from RadialGeometry to achieve sphere
+     *
+     * @param center point center of sphere
+     * @param radius radius of sphere
+     */
+    public Sphere(Point3D center, double radius) {
+        this(Color.BLACK, center, radius);
+    }
+
+    /**
      * GetNormal to Sphere
      *
      * @param point3D
@@ -56,51 +90,6 @@ public class Sphere extends RadialGeometry {
         else//one intersection point
             return List.of(new GeoPoint(this, ray.getPoint(t2)));
     }
-
-    /**
-     * This Sphere class implement from RadialGeometry to achieve sphere
-     *
-     * @param material
-     * @param emissionLight
-     * @param center        point center of sphere
-     * @param radius        radius of sphere
-     */
-    public Sphere(Material material, Color emissionLight, Point3D center, double radius) {
-        super(material, emissionLight, radius);
-        _center = center;
-    }
-
-    /**
-     * This Sphere class implement from RadialGeometry to achieve sphere
-     *
-     * @param emissionLight
-     * @param center        point center of sphere
-     * @param radius        radius of sphere
-     */
-    public Sphere(Color emissionLight, Point3D center, double radius) {
-        this(new Material(0, 0, 0), emissionLight, center, radius);
-    }
-
-    /**
-     * This Sphere class implement from RadialGeometry to achieve sphere
-     *
-     * @param center point center of sphere
-     * @param radius radius of sphere
-     */
-    public Sphere(Point3D center, double radius) {
-        this(Color.BLACK, center, radius);
-    }
-
-    //  /**
-    //   * This Sphere class implement from RadialGeometry to achieve sphere
-    //   *
-    //   * @param emissionLight color in the geometry
-    //   * @param center        point center of sphere
-    //   * @param radius        radius of sphere
-    //   */
-    //  public Sphere(Color emissionLight, Point3D center, double radius) {
-    //      this(center, radius);
-    //  }
 
     /**
      * Get center of Sphere

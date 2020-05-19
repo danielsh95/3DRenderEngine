@@ -31,7 +31,6 @@ public class Plane extends Geometry {
      * @param point3D       point in the plane
      * @param normal        normal to Plane
      */
-
     public Plane(Color emissionLight, Point3D point3D, Vector normal) {
         this(new Material(0, 0, 0), emissionLight, point3D, normal);
     }

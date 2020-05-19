@@ -3,7 +3,6 @@ package renderer;
 import element.Camera;
 import element.LightSource;
 import geometries.Intersectable;
-
 import primitives.*;
 import scene.Scene;
 
@@ -14,14 +13,14 @@ import geometries.Intersectable.GeoPoint;
 import static primitives.Util.alignZero;
 
 /**
- * Engine for create image from scene
+ * Engine for create an image from scene
  **/
 public class Render {
     private ImageWriter _imageWriter;
     private Scene _scene;
 
     /**
-     * constractor for render
+     * constructor for render
      *
      * @param imageWriter
      * @param scene
@@ -68,30 +67,40 @@ public class Render {
      * Method to get the color of ambientLight
      *
      * @param geoPoint geoPoint for paint
-     * @return intensity of color
+     * @return color in the point on geometry
      **/
-    public Color calcColor(GeoPoint geoPoint) {
+    private Color calcColor(GeoPoint geoPoint) {
 
+        //Add to result color ambientLight + emission
         Color result = _scene.getAmbientLight().getIntensity();
-        result = result.add(geoPoint.geometry.getEmission());
+        result = result.add(geoPoint._geometry.getEmission());
+
         List<LightSource> lights = _scene.getLights();
 
-        Vector v = geoPoint.point.subtract(_scene.getCamera().getP0()).normalize();
-        Vector n = geoPoint.geometry.getNormal(geoPoint.point);
+        //v= p in the geometry to p0
+        Vector v = geoPoint._point.subtract(_scene.getCamera().getP0()).normalize();
+        //normal in the point
+        Vector n = geoPoint._geometry.getNormal(geoPoint._point);
 
-        Material material = geoPoint.geometry.getMaterial();
+        Material material = geoPoint._geometry.getMaterial();
         int nShininess = material.getNShininess();
         double kd = material.getKD();
         double ks = material.getKS();
+
+        //if have lights
         if (_scene.getLights() != null) {
+            //loop for every lights
             for (LightSource lightSource : lights) {
 
-                Vector l = lightSource.getL(geoPoint.point);
+                Vector l = lightSource.getL(geoPoint._point);
                 double nl = alignZero(n.dotProduct(l));
                 double nv = alignZero(n.dotProduct(v));
 
+                //if nl and nv are same sign
                 if (sign(nl) == sign(nv)) {
-                    Color ip = lightSource.getIntensity(geoPoint.point);
+                    Color ip = lightSource.getIntensity(geoPoint._point);
+
+                    //add to result defuse + specular
                     result = result.add(
                             calcDiffusive(kd, nl, ip),
                             calcSpecular(ks, l, n, nl, v, nShininess, ip)
@@ -99,12 +108,12 @@ public class Render {
                 }
             }
         }
-
+        //return color in the point
         return result;
     }
 
     /**
-     * check if the number is sign
+     * Check if the number is sign
      *
      * @param val value to check
      * @return result
@@ -119,13 +128,13 @@ public class Render {
      * @param points list of points
      * @return closest point
      **/
-    public GeoPoint getClosestPoint(List<GeoPoint> points) {
+    private GeoPoint getClosestPoint(List<GeoPoint> points) {
         GeoPoint closesPoint = null;
         Point3D p0 = _scene.getCamera().getP0();
         double minDistance = Double.MAX_VALUE;
 
         for (GeoPoint geoPoint : points) {
-            double distance = p0.distance(geoPoint.point);
+            double distance = p0.distance(geoPoint._point);
             if (distance < minDistance) {
                 minDistance = distance;
                 closesPoint = geoPoint;
@@ -176,13 +185,13 @@ public class Render {
     /**
      * Get the color of the specular
      *
-     * @param ks pre specular
-     * @param l vector from light to point in the geometry
-     * @param n normal in the point
-     * @param nl the angle between normal in the point to L
-     * @param v normalize vector form camera to point in geometry
+     * @param ks         pre specular
+     * @param l          vector from light to point in the geometry
+     * @param n          normal in the point
+     * @param nl         the angle between normal in the point to L
+     * @param v          normalize vector form camera to point in geometry
      * @param nShininess n Shininess
-     * @param ip light in the point
+     * @param ip         light in the point
      **/
     private Color calcSpecular(double ks, Vector l, Vector n, double nl, Vector v, int nShininess, Color ip) {
         double p = nShininess;

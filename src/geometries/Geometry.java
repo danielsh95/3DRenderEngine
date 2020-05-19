@@ -6,7 +6,7 @@ import primitives.Point3D;
 import primitives.Vector;
 
 /**
- * This class is used to represent shape geometry
+ * This class is using to represent shape geometry
  */
 public abstract class Geometry implements Intersectable {
 
@@ -58,7 +58,7 @@ public abstract class Geometry implements Intersectable {
 
     /**
      * Get material of geometry
-     * **/
+     **/
     public Material getMaterial() {
         return _material;
     }

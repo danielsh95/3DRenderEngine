@@ -78,7 +78,7 @@ public class Triangle extends Polygon {
             //update intersections to be geometry of polygon
             List<GeoPoint> intersectionsOfTriangle = new ArrayList<>();
             for (GeoPoint g : intersectionsOfPlane) {
-                intersectionsOfTriangle.add(new GeoPoint(this, g.point));
+                intersectionsOfTriangle.add(new GeoPoint(this, g._point));
             }
             return intersectionsOfTriangle;
         } else return null;

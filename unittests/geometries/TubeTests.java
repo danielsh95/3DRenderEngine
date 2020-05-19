@@ -6,7 +6,6 @@ import primitives.Ray;
 import primitives.Vector;
 import geometries.Intersectable.GeoPoint;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -34,7 +33,7 @@ public class TubeTests {
         // TC01: The ray intersect the Tube at two points
         List<GeoPoint> result = tube.findIntersections(new Ray(new Point3D(5, 0.8, 4), new Vector(-1, 0, 3)));
         assertEquals("Wrong number of points", 2, result.size());
-        if (result.get(0).point.getX().get() > result.get(1).point.getX().get())
+        if (result.get(0)._point.getX().get() > result.get(1)._point.getX().get())
             result = List.of(result.get(1), result.get(0));
         assertEquals("should be two points of intersect",
                 List.of(new GeoPoint(tube, new Point3D(0.4, 0.8, 17.8)),  new GeoPoint(tube,new Point3D(1.6, 0.8, 14.2))), result);
@@ -50,19 +49,19 @@ public class TubeTests {
         // ** Group: Ray orthogonal to the tube Cases
         // TC 11: ray start before and going through the tube(2 points)
         result = tube.findIntersections(new Ray(new Point3D(3, 0.8, 5), new Vector(-1, 0, 0)));
-        if (result.get(0).point.getX().get() > result.get(1).point.getX().get())
+        if (result.get(0)._point.getX().get() > result.get(1)._point.getX().get())
             result = List.of(result.get(1), result.get(0));
         assertEquals("Ray crosses tube",
                 List.of(new GeoPoint(tube, new Point3D(0.4, 0.8, 5)), new GeoPoint(tube, new Point3D(1.6, 0.8, 5))),result);
         // TC 12: ray start before and going through axis the tube(2 points)
         result = tube.findIntersections(new Ray(new Point3D(3, 0, 5), new Vector(-1, 0, 0)));
-        if (result.get(0).point.getX().get() > result.get(1).point.getX().get())
+        if (result.get(0)._point.getX().get() > result.get(1)._point.getX().get())
             result = List.of(result.get(1), result.get(0));
         assertEquals("Ray crosses tube",
                 List.of(new GeoPoint(tube, new Point3D(0, 0, 5)),new GeoPoint(tube,  new Point3D(2, 0, 5))),result);
         // TC 13: ray start before and going through the center point of tube(2 point)
         result = tube.findIntersections(new Ray(new Point3D(3, 0, 0), new Vector(-1, 0, 0)));
-        if (result.get(0).point.getX().get() > result.get(1).point.getX().get())
+        if (result.get(0)._point.getX().get() > result.get(1)._point.getX().get())
             result = List.of(result.get(1), result.get(0));
         assertEquals("Ray crosses tube",
                 List.of(new GeoPoint(tube, new Point3D(0, 0, 0)), new GeoPoint(tube, new Point3D(2, 0, 0))), result);

@@ -45,128 +45,64 @@ public class CameraIntegrationTest {
         return countOfInstrections;
     }
 
-    /**
-     * This case test for to check the amount of ray intersections in every pixel in the view sphere model of
-     * radius 2 and start from (0,0,0) point from camera (2 intersections)
-     **/
     @Test
-    public void constructRayThroughPixelTestSphere1() {
-        Camera camera = new Camera(ZERO, new Vector(0, 0, 1), new Vector(0, -1, 0));
-        Sphere sphere = new Sphere(new Point3D(0, 0, 3), 1);
+    public void amountConstructRayThroughPixelTest() {
+        Camera camera1 = new Camera(ZERO, new Vector(0, 0, 1), new Vector(0, -1, 0));
+        Camera camera2 = new Camera(new Point3D(0, 0, -0.5), new Vector(0, 0, 1), new Vector(0, -1, 0));
 
+        //This case test for to check the amount of ray intersections in every pixel in the view sphere model of
+        //radius 2 and start from (0,0,0) point from camera (2 intersections)
+        Sphere sphere1 = new Sphere(new Point3D(0, 0, 3), 1);
         assertEquals("error, count of intersections is not the same excepted", 2,
-                amountIntersectionsFromPixelsToGeometry(sphere, camera));
-    }
+                amountIntersectionsFromPixelsToGeometry(sphere1, camera1));
 
-    /**
-     * This case test for to check the amount of ray intersections in every pixel in the view sphere model of
-     * radius 2.5 and start from (0,0,-0.5) point from camera (18 intersections)
-     **/
-    @Test
-    public void constructRayThroughPixelTestSphere2() {
-        Camera camera = new Camera(new Point3D(0, 0, -0.5), new Vector(0, 0, 1), new Vector(0, -1, 0));
-        Sphere sphere = new Sphere(new Point3D(0, 0, 2.5), 2.5);
-
+        //This case test for to check the amount of ray intersections in every pixel in the view sphere model of
+        //radius 2.5 and start from (0,0,-0.5) point from camera (18 intersections)
+        Sphere sphere2 = new Sphere(new Point3D(0, 0, 2.5), 2.5);
         assertEquals("error, count of intersections is not the same excepted", 18,
-                amountIntersectionsFromPixelsToGeometry(sphere, camera));
-    }
+                amountIntersectionsFromPixelsToGeometry(sphere2, camera2));
 
-    /**
-     * This case test for to check the amount of ray intersections in every pixel in the view sphere model of
-     * radius 2 and start from (0,0,-0.5) point from camera (10 intersections)
-     **/
-    @Test
-    public void constructRayThroughPixelTestSphere3() {
-        Camera camera = new Camera(new Point3D(0, 0, -0.5), new Vector(0, 0, 1), new Vector(0, -1, 0));
-        Sphere sphere = new Sphere(new Point3D(0, 0, 2), 2);
-
+        //This case test for to check the amount of ray intersections in every pixel in the view sphere model of
+        //radius 2 and start from (0,0,-0.5) point from camera (10 intersections)
+        Sphere sphere3 = new Sphere(new Point3D(0, 0, 2), 2);
         assertEquals("error, count of intersections is not the same excepted", 10,
-                amountIntersectionsFromPixelsToGeometry(sphere, camera));
-    }
+                amountIntersectionsFromPixelsToGeometry(sphere3, camera2));
 
-    /**
-     * This case test for to check the amount of ray intersections in every pixel in the view sphere model of
-     * radius 4 and start from (0,0,0) point from camera (9 intersections)
-     **/
-    @Test
-    public void constructRayThroughPixelTestSphere4() {
-        Camera camera = new Camera(ZERO, new Vector(0, 0, 1), new Vector(0, -1, 0));
-        Sphere sphere = new Sphere(new Point3D(0, 0, 1), 4);
-
+        //This case test for to check the amount of ray intersections in every pixel in the view sphere model of
+        //radius 4 and start from (0,0,0) point from camera (9 intersections)
+        Sphere sphere4 = new Sphere(new Point3D(0, 0, 1), 4);
         assertEquals("error, count of intersections is not the same excepted", 9,
-                amountIntersectionsFromPixelsToGeometry(sphere, camera));
-    }
+                amountIntersectionsFromPixelsToGeometry(sphere4, camera1));
 
-    /**
-     * This case test for to check the amount of ray intersections in every pixel in the view sphere model of
-     * radius 0.5 and start from (0,0,0) point from camera (sphere is back) (0 intersections)
-     **/
-    @Test
-    public void constructRayThroughPixelTestSphere5() {
-        Camera camera = new Camera(ZERO, new Vector(0, 0, 1), new Vector(0, -1, 0));
-        Sphere sphere = new Sphere(new Point3D(0, 0, -1), 0.5);
-
+        //This case test for to check the amount of ray intersections in every pixel in the view sphere model of
+        //radius 0.5 and start from (0,0,0) point from camera (sphere is back) (0 intersections)
+        Sphere sphere5 = new Sphere(new Point3D(0, 0, -1), 0.5);
         assertEquals("error, count of intersections is not the same excepted", 0,
-                amountIntersectionsFromPixelsToGeometry(sphere, camera));
-    }
+                amountIntersectionsFromPixelsToGeometry(sphere5, camera1));
 
-    /**
-     * This case test for to check the amount of ray intersections in every pixel in the view plane model (9 intersections)
-     **/
-    @Test
-    public void constructRayThroughPixelTestPlane1() {
-        Camera camera = new Camera(ZERO, new Vector(0, 0, 1), new Vector(0, -1, 0));
-        Plane plane = new Plane(new Point3D(3, 0, 3), new Point3D(0, -3, 3), new Point3D(-3, 0, 3));
-
+        //This case test for to check the amount of ray intersections in every pixel in the view plane model (9 intersections)
+        Plane plane1 = new Plane(new Point3D(3, 0, 3), new Point3D(0, -3, 3), new Point3D(-3, 0, 3));
         assertEquals("error, count of intersections is not the same excepted", 9,
-                amountIntersectionsFromPixelsToGeometry(plane, camera));
-    }
+                amountIntersectionsFromPixelsToGeometry(plane1, camera1));
 
-    /**
-     * This case test for to check the amount of ray intersections in every pixel in the view plane model (9 intersections)
-     **/
-    @Test
-    public void constructRayThroughPixelTestPlane2() {
-        Camera camera = new Camera(ZERO, new Vector(0, 0, 1), new Vector(0, -1, 0));
-        Plane plane = new Plane(new Point3D(3, 0, 5), new Point3D(0, 3, 6), new Point3D(-3, 0, 5));
-
+        //This case test for to check the amount of ray intersections in every pixel in the view plane model (9 intersections)
+        Plane plane2 = new Plane(new Point3D(3, 0, 5), new Point3D(0, 3, 6), new Point3D(-3, 0, 5));
         assertEquals("error, count of intersections is not the same excepted", 9,
-                amountIntersectionsFromPixelsToGeometry(plane, camera));
-    }
+                amountIntersectionsFromPixelsToGeometry(plane2, camera1));
 
-    /**
-     * This case test for to check the amount of ray intersections in every pixel in the view plane model (6 intersections)
-     **/
-    @Test
-    public void constructRayThroughPixelTestPlane3() {
-        Camera camera = new Camera(ZERO, new Vector(0, 0, 1), new Vector(0, -1, 0));
-        Plane plane = new Plane(new Point3D(3, 0, 3), new Point3D(0, 3, 6), new Point3D(-3, 0, 3));
-
+        //This case test for to check the amount of ray intersections in every pixel in the view plane model (6 intersections)
+        Plane plane3 = new Plane(new Point3D(3, 0, 3), new Point3D(0, 3, 6), new Point3D(-3, 0, 3));
         assertEquals("error, count of intersections is not the same excepted", 6,
-                amountIntersectionsFromPixelsToGeometry(plane, camera));
-    }
+                amountIntersectionsFromPixelsToGeometry(plane3, camera1));
 
-    /**
-     * This case test for to check the amount of ray intersections in every pixel in the view triangle model (1 intersections)
-     **/
-    @Test
-    public void constructRayThroughPixelTestTriangle1() {
-        Camera camera = new Camera(ZERO, new Vector(0, 0, 1), new Vector(0, -1, 0));
-        Triangle triangle = new Triangle(new Point3D(0, -1, 2), new Point3D(1, 1, 2), new Point3D(-1, 1, 2));
-
+        //This case test for to check the amount of ray intersections in every pixel in the view triangle model (1 intersections)
+        Triangle triangle1 = new Triangle(new Point3D(0, -1, 2), new Point3D(1, 1, 2), new Point3D(-1, 1, 2));
         assertEquals("error, count of intersections is not the same excepted", 1,
-                amountIntersectionsFromPixelsToGeometry(triangle, camera));
-    }
+                amountIntersectionsFromPixelsToGeometry(triangle1, camera1));
 
-    /**
-     * This case test for to check the amount of ray intersections in every pixel in the view triangle model (2 intersections)
-     **/
-    @Test
-    public void constructRayThroughPixelTestTriangle2() {
-        Camera camera = new Camera(ZERO, new Vector(0, 0, 1), new Vector(0, -1, 0));
-        Triangle triangle = new Triangle(new Point3D(0, -20, 2), new Point3D(1, 1, 2), new Point3D(-1, 1, 2));
-
+        //This case test for to check the amount of ray intersections in every pixel in the view triangle model (2 intersections)
+        Triangle triangle2 = new Triangle(new Point3D(0, -20, 2), new Point3D(1, 1, 2), new Point3D(-1, 1, 2));
         assertEquals("error, count of intersections is not the same excepted", 2,
-                amountIntersectionsFromPixelsToGeometry(triangle, camera));
+                amountIntersectionsFromPixelsToGeometry(triangle2, camera1));
     }
 }

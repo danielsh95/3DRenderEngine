@@ -2,6 +2,7 @@ package element;
 
 import primitives.Color;
 import primitives.Point3D;
+import primitives.Util;
 import primitives.Vector;
 
 import static primitives.Util.alignZero;
@@ -25,7 +26,7 @@ public class SpotLight extends PointLight {
      **/
     public SpotLight(Color intensity, Point3D position, Vector direction, double kC, double kL, double kQ) {
         super(intensity, position, kC, kL, kQ);
-        _direction = direction;
+        _direction = direction.normalized();
     }
 
     @Override

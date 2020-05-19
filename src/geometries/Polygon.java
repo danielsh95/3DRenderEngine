@@ -97,7 +97,6 @@ public class Polygon extends Geometry {
      *                                  <li>The polygon is concave (not convex></li>
      *                                  </ul>
      */
-
     public Polygon(Material material, Color emissionLight, Point3D... vertices) {
         super(emissionLight, material);
 
@@ -139,7 +138,6 @@ public class Polygon extends Geometry {
         }
     }
 
-
     @Override
     public Vector getNormal(Point3D point) {
         return _plane.getNormal();
@@ -180,7 +178,7 @@ public class Polygon extends Geometry {
         //update intersections to be geometry of polygon
         List<GeoPoint> intersectionsOfPolygon = new ArrayList<>();
         for (GeoPoint g : intersections) {
-            intersectionsOfPolygon.add(new GeoPoint(this, g.point));
+            intersectionsOfPolygon.add(new GeoPoint(this, g._point));
         }
 
         return intersectionsOfPolygon;

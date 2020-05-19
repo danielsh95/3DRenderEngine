@@ -33,7 +33,7 @@ public class PointLight extends Light implements LightSource {
         double distance = p.distanceSquared(_position);
         double d = p.distance(_position);
 
-        return _intensity.reduce( _kC + _kL * d + _kQ * distance);
+        return _intensity.reduce(_kC + _kL * d + _kQ * distance);
     }
 
     @Override

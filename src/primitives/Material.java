@@ -10,6 +10,10 @@ public class Material {
 
     /**
      * C'tor for class material
+     *
+     * @param kD         pre diffuse
+     * @param kS         pre specular
+     * @param nShininess pow n
      **/
     public Material(double kD, double kS, int nShininess) {
         _kD = kD;

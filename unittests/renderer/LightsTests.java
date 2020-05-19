@@ -5,11 +5,10 @@ import org.junit.Test;
 import element.*;
 import geometries.*;
 import primitives.*;
-import renderer.*;
 import scene.Scene;
 
 /**
- * Test rendering abasic image
+ * Test rendering a basic image
  *
  * @author Dan
  */
@@ -27,7 +26,7 @@ public class LightsTests {
         scene.setAmbientLight(new AmbientLight(Color.BLACK, 0));
 
         scene.addGeometries(
-                new Sphere(new Material(0.5, 0.5, 100), new Color(java.awt.Color.BLUE),  new Point3D(0, 0, 50),50));
+                new Sphere(new Material(0.5, 0.5, 100), new Color(java.awt.Color.BLUE), new Point3D(0, 0, 50), 50));
 
         scene.addLights(new DirectionalLight(new Color(500, 300, 0), new Vector(1, -1, 1)));
 
@@ -50,7 +49,7 @@ public class LightsTests {
         scene.setAmbientLight(new AmbientLight(Color.BLACK, 0));
 
         scene.addGeometries(
-                new Sphere( new Material(0.5, 0.5, 100), new Color(java.awt.Color.BLUE),  new Point3D(0, 0, 50),50));
+                new Sphere(new Material(0.5, 0.5, 100), new Color(java.awt.Color.BLUE), new Point3D(0, 0, 50), 50));
 
         scene.addLights(new PointLight(new Color(500, 300, 0), new Point3D(-50, 50, -50), 1, 0.00001, 0.000001));
 
@@ -73,12 +72,35 @@ public class LightsTests {
         scene.setAmbientLight(new AmbientLight(Color.BLACK, 0));
 
         scene.addGeometries(
-                new Sphere(new Material(0.5, 0.5, 100),new Color(java.awt.Color.BLUE), new Point3D(0, 0, 50) ,50 ));
+                new Sphere(new Material(0.5, 0.5, 100), new Color(java.awt.Color.BLUE), new Point3D(0, 0, 50), 50));
 
         scene.addLights(new SpotLight(new Color(500, 300, 0), new Point3D(-50, 50, -50),
                 new Vector(1, -1, 2), 1, 0.00001, 0.00000001));
 
         ImageWriter imageWriter = new ImageWriter("sphereSpot", 150, 150, 500, 500);
+        Render render = new Render(imageWriter, scene);
+
+        render.renderImage();
+        render.writeToImage();
+    }
+
+    @Test
+    public void sphereWithAllLights() {
+        Scene scene = new Scene("Test scene");
+        scene.setCamera(new Camera(new Point3D(0, 0, -1000), new Vector(0, 0, 1), new Vector(0, -1, 0)));
+        scene.setDistance(1000);
+        scene.setBackground(Color.BLACK);
+        scene.setAmbientLight(new AmbientLight(Color.BLACK, 0));
+
+        scene.addGeometries(
+                new Sphere(new Material(0.5, 0.5, 100), new Color(java.awt.Color.BLUE), new Point3D(0, 0, 50), 50));
+
+        scene.addLights(
+                new DirectionalLight(new Color(500, 300, 0), new Vector(1, -1, 1)),
+                new SpotLight(new Color(500, 300, 0), new Point3D(-50, 50, -50), new Vector(1, -1, 2), 1, 0.00001, 0.1),
+                new PointLight(new Color(500, 300, 0), new Point3D(-50, 50, -50), 1, 0.000001, 0.0001));
+
+        ImageWriter imageWriter = new ImageWriter("sphereWithAllLights", 150, 150, 500, 500);
         Render render = new Render(imageWriter, scene);
 
         render.renderImage();
@@ -97,9 +119,9 @@ public class LightsTests {
         scene.setAmbientLight(new AmbientLight(new Color(java.awt.Color.WHITE), 0.15));
 
         scene.addGeometries(
-                new Triangle(new Material(0.8, 0.2, 300),Color.BLACK,
+                new Triangle(new Material(0.8, 0.2, 300), Color.BLACK,
                         new Point3D(-150, 150, 150), new Point3D(150, 150, 150), new Point3D(75, -75, 150)),
-                new Triangle(new Material(0.8, 0.2, 300),Color.BLACK,
+                new Triangle(new Material(0.8, 0.2, 300), Color.BLACK,
                         new Point3D(-150, 150, 150), new Point3D(-70, -70, 50), new Point3D(75, -75, 150)));
 
         scene.addLights(new DirectionalLight(new Color(300, 150, 150), new Vector(0, 0, 1)));
@@ -123,9 +145,9 @@ public class LightsTests {
         scene.setAmbientLight(new AmbientLight(new Color(java.awt.Color.WHITE), 0.15));
 
         scene.addGeometries(
-                new Triangle(new Material(0.5, 0.5, 300),Color.BLACK,
+                new Triangle(new Material(0.5, 0.5, 300), Color.BLACK,
                         new Point3D(-150, 150, 150), new Point3D(150, 150, 150), new Point3D(75, -75, 150)),
-                new Triangle(new Material(0.5, 0.5, 300),Color.BLACK,
+                new Triangle(new Material(0.5, 0.5, 300), Color.BLACK,
                         new Point3D(-150, 150, 150), new Point3D(-70, -70, 50), new Point3D(75, -75, 150)));
 
         scene.addLights(new PointLight(new Color(500, 250, 250),
@@ -151,9 +173,9 @@ public class LightsTests {
         scene.setAmbientLight(new AmbientLight(new Color(java.awt.Color.WHITE), 0.15));
 
         scene.addGeometries(
-                new Triangle(new Material(0.5, 0.5, 300),Color.BLACK,
+                new Triangle(new Material(0.5, 0.5, 300), Color.BLACK,
                         new Point3D(-150, 150, 150), new Point3D(150, 150, 150), new Point3D(75, -75, 150)),
-                new Triangle(new Material(0.5, 0.5, 300),Color.BLACK,
+                new Triangle(new Material(0.5, 0.5, 300), Color.BLACK,
                         new Point3D(-150, 150, 150), new Point3D(-70, -70, 50), new Point3D(75, -75, 150)));
 
         scene.addLights(new SpotLight(new Color(500, 250, 250),
@@ -167,4 +189,30 @@ public class LightsTests {
         render.writeToImage();
     }
 
+
+    @Test
+    public void triangleWithAllLights() {
+        Scene scene = new Scene("Test scene");
+        scene.setCamera(new Camera(new Point3D(0, 0, -1000), new Vector(0, 0, 1), new Vector(0, -1, 0)));
+        scene.setDistance(1000);
+        scene.setBackground(Color.BLACK);
+        scene.setAmbientLight(new AmbientLight(new Color(java.awt.Color.WHITE), 0.15));
+
+        scene.addGeometries(
+                new Triangle(new Material(0.8, 0.2, 300), Color.BLACK,
+                        new Point3D(-150, 150, 150), new Point3D(150, 150, 150), new Point3D(75, -75, 150)),
+                new Triangle(new Material(0.8, 0.2, 300), Color.BLACK,
+                        new Point3D(-150, 150, 150), new Point3D(-70, -70, 50), new Point3D(75, -75, 150)));
+
+        scene.addLights(
+                new DirectionalLight(new Color(300, 150, 150), new Vector(0, 0, 1)),
+                new PointLight(new Color(500, 250, 250), new Point3D(10, 10, 130), 1, 0.0005, 0.0005),
+                new SpotLight(new Color(500, 250, 250), new Point3D(10, 10, 130), new Vector(-2, 2, 1), 1, 0.0001, 0.000005));
+
+        ImageWriter imageWriter = new ImageWriter("trianglesWithAllLights", 200, 200, 500, 500);
+        Render render = new Render(imageWriter, scene);
+
+        render.renderImage();
+        render.writeToImage();
+    }
 }

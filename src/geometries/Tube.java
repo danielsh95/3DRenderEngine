@@ -47,12 +47,6 @@ public class Tube extends RadialGeometry {
         this(Color.BLACK, axisRay, radius);
     }
 
-    /**
-     * GetNormal to Tube
-     *
-     * @param point3D point in the tube
-     * @return normal to tube
-     **/
     @Override
     public Vector getNormal(Point3D point3D) {
         //The vector from the point of the tube to the given point
@@ -158,7 +152,6 @@ public class Tube extends RadialGeometry {
         }
         return null;
     }
-
 
     @Override
     public double getRadius() {

@@ -4,20 +4,12 @@ import org.junit.Test;
 
 import element.*;
 import geometries.*;
-import org.w3c.dom.*;
 import primitives.*;
 
 import scene.Scene;
-import geometries.Intersectable;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
- * Test rendering abasic image
+ * Test rendering a basic image
  *
  * @author Dan
  */
@@ -35,7 +27,7 @@ public class RenderTests {
         scene.setBackground(new Color(75, 127, 90));
         scene.setAmbientLight(new AmbientLight(new Color(255, 191, 191), 1));
 
-        scene.addGeometries(new Sphere(new Point3D(0, 0, 100),50));
+        scene.addGeometries(new Sphere(new Point3D(0, 0, 100), 50));
 
         scene.addGeometries(
                 new Triangle(new Point3D(100, 0, 100), new Point3D(0, 100, 100), new Point3D(100, 100, 100)),
@@ -59,7 +51,7 @@ public class RenderTests {
         scene.setBackground(Color.BLACK);
         scene.setAmbientLight(new AmbientLight(new Color(java.awt.Color.WHITE), 0.2));
 
-        scene.addGeometries(new Sphere( new Point3D(0, 0, 100),50));
+        scene.addGeometries(new Sphere(new Point3D(0, 0, 100), 50));
 
         scene.addGeometries(
                 new Triangle(new Color(java.awt.Color.BLUE),

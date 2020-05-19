@@ -7,8 +7,8 @@ import static primitives.Util.isZero;
  * And Ray contain direction vector.
  **/
 public class Ray {
-    private Point3D POO;
-    private Vector direction;
+    private Point3D _POO;
+    private Vector _direction;
 
     /**
      * Constructor of Ray that contain Point3D and direction to object Ray
@@ -17,8 +17,8 @@ public class Ray {
      * @param direction for direction vector
      **/
     public Ray(Point3D POO, Vector direction) {
-        this.POO = POO;
-        this.direction = direction.normalized();
+        this._POO = POO;
+        this._direction = direction.normalized();
     }
 
     /**
@@ -27,8 +27,8 @@ public class Ray {
      * @param ray
      **/
     public Ray(Ray ray) {
-        this.POO = ray.POO;
-        this.direction = ray.direction;
+        this._POO = ray._POO;
+        this._direction = ray._direction;
     }
 
     /**
@@ -37,7 +37,7 @@ public class Ray {
      * @return POO
      **/
     public Point3D getPOO() {
-        return POO;
+        return _POO;
     }
 
     /**
@@ -46,7 +46,7 @@ public class Ray {
      * @return direction
      **/
     public Vector getDirection() {
-        return direction;
+        return _direction;
     }
 
     /**
@@ -56,7 +56,7 @@ public class Ray {
      * @return new Point3D
      */
     public Point3D getPoint(double t) {
-        return isZero(t) ? POO : POO.add(direction.scale(t));
+        return isZero(t) ? _POO : _POO.add(_direction.scale(t));
     }
 
     @Override
@@ -65,12 +65,12 @@ public class Ray {
         if (obj == null) return false;
         if (!(obj instanceof Ray)) return false;
         Ray ray = (Ray) obj;
-        return POO.equals(ray.POO) &&
-                direction.equals(ray.direction);
+        return _POO.equals(ray._POO) &&
+                _direction.equals(ray._direction);
     }
 
     @Override
     public String toString() {
-        return " POO: " + POO + " direction: " + direction;
+        return " POO: " + _POO + " direction: " + _direction;
     }
 }

@@ -3,7 +3,7 @@ package element;
 import primitives.Color;
 
 /**
- * class for color
+ * class AmbientLight for color light
  **/
 public class AmbientLight extends Light {
 
@@ -16,5 +16,4 @@ public class AmbientLight extends Light {
     public AmbientLight(Color ia, double ka) {
         super(ia.scale(ka));
     }
-
 }

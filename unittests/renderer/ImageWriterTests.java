@@ -4,7 +4,7 @@ import org.junit.Test;
 import java.awt.*;
 
 /**
- * Class to write grid to image and create it
+ * Class to write a grid to image and create it
  * **/
 public class ImageWriterTests {
 
