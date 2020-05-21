@@ -2,11 +2,9 @@ package element;
 
 import primitives.Color;
 import primitives.Point3D;
-import primitives.Util;
 import primitives.Vector;
 
 import static primitives.Util.alignZero;
-import static primitives.Util.isZero;
 
 /**
  * Class for SpotLight
@@ -31,14 +29,10 @@ public class SpotLight extends PointLight {
 
     @Override
     public Color getIntensity(Point3D p) {
-        double dsquerd = p.distanceSquared(_position);
-
-        double distance = p.distance(_position);
         double projDToL = getL(p).dotProduct(_direction);
-
-        if (alignZero(projDToL) <= 0) {
+        if (alignZero(projDToL) <= 0)
             return Color.BLACK;
-        }
-        return _intensity.scale(projDToL).reduce(_kC + _kL * distance + _kQ * dsquerd);
+
+        return super.getIntensity(p).scale(projDToL);
     }
 }

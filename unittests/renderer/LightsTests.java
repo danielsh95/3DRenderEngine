@@ -84,6 +84,9 @@ public class LightsTests {
         render.writeToImage();
     }
 
+    /**
+     * Produce a picture of a sphere from all of lights
+     */
     @Test
     public void sphereWithAllLights() {
         Scene scene = new Scene("Test scene");
@@ -189,7 +192,9 @@ public class LightsTests {
         render.writeToImage();
     }
 
-
+    /**
+     * Produce a picture of a triangle from all of lights
+     */
     @Test
     public void triangleWithAllLights() {
         Scene scene = new Scene("Test scene");

@@ -32,7 +32,7 @@ public interface Intersectable {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
             GeoPoint geoPoint = (GeoPoint) o;
-            return _geometry.equals(geoPoint._geometry) &&
+            return _geometry == geoPoint._geometry &&
                     _point.equals(geoPoint._point);
         }
 

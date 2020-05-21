@@ -45,6 +45,9 @@ public class CameraIntegrationTest {
         return countOfInstrections;
     }
 
+    /**
+     * The test checking the amount of intersections from pixels to geometry
+     **/
     @Test
     public void amountConstructRayThroughPixelTest() {
         Camera camera1 = new Camera(ZERO, new Vector(0, 0, 1), new Vector(0, -1, 0));

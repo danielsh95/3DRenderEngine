@@ -43,6 +43,9 @@ public class RenderTests {
         render.writeToImage();
     }
 
+    /**
+     * Test building an image for a basic render
+     * **/
     @Test
     public void basicRenderMultiColorTest() {
         Scene scene = new Scene("Test scene");
