@@ -12,7 +12,7 @@ public class PointLight extends Light implements LightSource {
     protected double _kC, _kL, _kQ;
 
     /**
-     * Ctor for PointLight
+     * C'tor for PointLight
      *
      * @param intensity
      * @param position
@@ -41,5 +41,10 @@ public class PointLight extends Light implements LightSource {
         if (p.equals(_position))
             return null;
         return p.subtract(_position).normalize();
+    }
+
+    @Override
+    public double getDistance(Point3D point) {
+        return _position.distance(point);
     }
 }
