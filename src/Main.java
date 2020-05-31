@@ -27,6 +27,8 @@ public final class Main {
      * @param args irrelevant here
      */
     public static void main(String[] args) {
-
+        Vector v1= new Vector(1.84,-2.93,4);
+        Vector v2= new Vector(-12,-13,-4);
+        double v3 = v1.dotProduct(v2);
     }
 }
