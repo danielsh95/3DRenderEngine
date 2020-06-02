@@ -17,7 +17,7 @@ public interface Intersectable {
         public Point3D _point;
 
         /**
-         * Ctor for GeoPoint
+         * C'tor for GeoPoint
          *
          * @param geometry
          * @param point

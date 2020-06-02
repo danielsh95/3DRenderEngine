@@ -9,7 +9,7 @@ abstract class Light {
     protected Color _intensity;
 
     /**
-     * Ctor for light
+     * C'tor for light
      *
      * @param intensity
      **/

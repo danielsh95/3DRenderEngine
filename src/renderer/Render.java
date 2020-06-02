@@ -83,6 +83,9 @@ public class Render {
      * Method to get the color of ambientLight
      *
      * @param geoPoint geoPoint for paint
+     * @param inRay    ray from camera to geometry
+     * @param level    max iteration of recursion
+     * @param k        min iteration of recursion
      * @return color in the point on geometry
      **/
     private Color calcColor(GeoPoint geoPoint, Ray inRay, int level, double k) {
@@ -326,6 +329,7 @@ public class Render {
      *
      * @param geoPoint
      * @param inRay
+     * @param n        vector normal
      * @return refracted ray
      **/
     private Ray constructRefractedRay(Point3D geoPoint, Ray inRay, Vector n) {
@@ -364,7 +368,7 @@ public class Render {
     /**
      * Get partial shading
      *
-     * @param light
+     * @param light    light source
      * @param l        vector from light source
      * @param n        normal
      * @param geopoint point

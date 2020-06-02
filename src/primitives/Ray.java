@@ -9,7 +9,7 @@ import static primitives.Util.isZero;
 public class Ray {
     private Point3D _POO;
     private Vector _direction;
-    public static final double DELTA = 0.1;
+    public static final double DELTA = 0.1; // to move in the epsilon
 
     /**
      * Constructor of Ray that contain Point3D and direction to object Ray
@@ -25,9 +25,9 @@ public class Ray {
     /**
      * Constructor of Ray that contain Point3D and direction and normal to object Ray
      *
-     * @param point       for starting point
+     * @param point     for starting point
      * @param direction for direction vector
-     * @param normal normal to object
+     * @param normal    normal to object
      **/
     public Ray(Point3D point, Vector direction, Vector normal) {
         //point + normal.scale(±DELTA)
