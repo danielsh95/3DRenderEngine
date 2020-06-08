@@ -4,6 +4,10 @@ import primitives.Point3D;
 import primitives.Ray;
 import primitives.Vector;
 
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Random;
+
 import static primitives.Util.isZero;
 
 /**
@@ -14,6 +18,8 @@ public class Camera {
     private Vector _vUp;
     private Vector _vTo;
     private Vector _vRight;
+    private int numOfRays = 1; //num of rays in every pixel(default = 1)
+    private boolean useManyRays = false; //default is off
 
     /**
      * constructor for camera
@@ -40,10 +46,13 @@ public class Camera {
      * @param screenDistance distance from p0 to view plane
      * @param screenHeight   height dots for every pixel
      * @param screenWidth    width dots for every pixel
-     * @return new ray from p0 to p
+     * @return new list of rays from p0 to area of p
      **/
-    public Ray constructRayThroughPixel(int nX, int nY, int j, int i, double screenDistance, double screenWidth, double screenHeight) {
+    public List<Ray> constructRayThroughPixel(int nX, int nY, int j, int i, double screenDistance, double screenWidth, double screenHeight) {
         if (isZero(screenDistance)) throw new IllegalArgumentException("distance can't be 0");
+
+        List<Ray> rays = new LinkedList<>();
+        Random random = new Random();
 
         //the center point of view plane
         Point3D pC = _p0.add(_vTo.scale(screenDistance));
@@ -55,18 +64,39 @@ public class Camera {
         double pY = (i - nY / 2d) * rY + rY / 2d;
 
         Point3D p = pC; //the point p start from the center
-        if (!isZero(pX)) {//can't be vector 0
-            p = p.add(_vRight.scale(pX));
+        Point3D pointInCenterPixel = getPointInPixel(p, pX, pY);// p is center of the pixel
+        rays.add(new Ray(_p0, pointInCenterPixel.subtract(_p0)));
+
+        Point3D pointInPixel;
+        if (useManyRays) {
+            //add some rays in pixel
+            for (int k = 1; k < numOfRays; k++) {
+                double x = (random.nextDouble() - 0.5) * rX;
+                double y = (random.nextDouble() - 0.5) * rY;
+                pointInPixel = getPointInPixel(pointInCenterPixel, x, y);
+                rays.add(new Ray(_p0, pointInPixel.subtract(_p0)));
+            }
+        }
+        return rays;
+    }
+
+    /**
+     * Get point in pixel
+     *
+     * @param p center point in the pixel
+     * @param x move by x from the center
+     * @param y move by y from the center
+     * @return new point in the pixel
+     **/
+    private Point3D getPointInPixel(Point3D p, double x, double y) {
+        if (!isZero(x)) {//can't be vector 0
+            p = p.add(_vRight.scale(x));
         }
 
-        if (!isZero(pY)) {//can't be vector 0
-            p = p.add(_vUp.scale((-1 * pY))); // same as p.substruct(vUp.scale(pY))
+        if (!isZero(y)) {//can't be vector 0
+            p = p.add(_vUp.scale((-1 * y))); // same as p.substruct(vUp.scale(pY))
         }
-
-        //the vector from p0 to p
-        Vector vP0ToP = p.subtract(_p0);
-
-        return new Ray(_p0, vP0ToP);
+        return p;
     }
 
     /**
@@ -103,5 +133,25 @@ public class Camera {
      */
     public Vector getvUp() {
         return _vUp;
+    }
+
+    /**
+     * Set num of rays for pixel
+     *
+     * @param numOfRays
+     **/
+    public void setNumOfRays(int numOfRays) {
+        if (numOfRays < 1)
+            throw new IllegalArgumentException("num of rays must be one or more");
+        this.numOfRays = numOfRays;
+    }
+
+    /**
+     * Set options of use many rays
+     *
+     * @param useManyRays
+     **/
+    public void setUseManyRays(boolean useManyRays) {
+        this.useManyRays = useManyRays;
     }
 }

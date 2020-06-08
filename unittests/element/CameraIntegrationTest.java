@@ -37,7 +37,7 @@ public class CameraIntegrationTest {
         for (int i = 0; i < nY; i++) {
             for (int j = 0; j < nX; j++) {
                 result = intersectable.findIntersections(camera.constructRayThroughPixel(nX, nY, j, i,
-                        1, 3, 3));
+                        1, 3, 3).get(0));
                 if (result != null)//not have intersections
                     countOfInstrections += result.size();
             }

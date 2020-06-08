@@ -37,7 +37,6 @@ public class Render {
      * method that paint the image
      **/
     public void renderImage() {
-
         //get details from scene
         java.awt.Color background = _scene.getBackground().getColor();
         Camera camera = _scene.getCamera();
@@ -54,13 +53,28 @@ public class Render {
         //if yes more than one so will paint by ambientLight
         for (int i = 0; i < nY; i++) {
             for (int j = 0; j < nX; j++) {
-                Ray ray = camera.constructRayThroughPixel(nX, nY, i, j, distance, width, height);
-                List<GeoPoint> result = geometries.findIntersections(ray);
-                if (result == null) {
+                List<Ray> rays = camera.constructRayThroughPixel(nX, nY, i, j, distance, width, height);
+                Color color = Color.BLACK;
+                List<GeoPoint> result = null;
+                int size = 0;
+                //for all ray in some are pixel find closes point intersection
+                for (Ray ray : rays) {
+                    result = geometries.findIntersections(ray);
+                    if (result != null) {
+                        GeoPoint nearly = getClosestPoint(result);
+                        if (nearly == null) {
+                            color = color.add(_scene.getBackground());
+                        } else
+                            color = color.add(calcColor(nearly, ray));
+                        //counter of rays in pixel
+                        size += 1;
+                    }
+                }
+                if (size == 0)
                     _imageWriter.writePixel(i, j, background);
-                } else {
-                    GeoPoint nearly = getClosestPoint(result);
-                    _imageWriter.writePixel(i, j, calcColor(nearly, ray).getColor());
+                else {
+                    //write a pixel in average of color
+                    _imageWriter.writePixel(i, j, color.reduce(size).getColor());
                 }
             }
         }
