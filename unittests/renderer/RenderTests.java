@@ -116,7 +116,7 @@ public class RenderTests {
 
     /**
      * Image with some geometries with all lights source for mini project 1
-     * **/
+     **/
     @Test
     public void imageMiniProject1() {
         Scene scene = new Scene("Test scene");

@@ -53,7 +53,7 @@ public class ShadowTests {
 
         scene.addGeometries(new Sphere(new Material(0.5, 0.5, 30), new Color(java.awt.Color.BLUE),  //
                         new Point3D(0, 0, 200), 60), //
-                new Triangle(new Material(0.5, 0.5, 30),new Color(java.awt.Color.BLUE),
+                new Triangle(new Material(0.5, 0.5, 30), new Color(java.awt.Color.BLUE),
                         new Point3D(-60, 30, 0), new Point3D(-30, 60, 0), new Point3D(-58, 58, 4)));
 
         scene.addLights(new SpotLight(new Color(400, 240, 0), //
@@ -163,7 +163,7 @@ public class ShadowTests {
                 new Sphere(new Material(0.5, 0.5, 30), new Color(java.awt.Color.BLUE), // )
                         new Point3D(0, 0, 115), 30));
 
-                scene.addLights(new SpotLight(new Color(700, 400, 400), //
+        scene.addLights(new SpotLight(new Color(700, 400, 400), //
                 new Point3D(40, -40, -115), new Vector(-1, 1, 4), 1, 4E-4, 2E-5));
 
         ImageWriter imageWriter = new ImageWriter("trianglesSphere", 200, 200, 600, 600);

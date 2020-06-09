@@ -1,16 +1,17 @@
 package renderer;
 
 import org.junit.Test;
+
 import java.awt.*;
 
 /**
  * Class to write a grid to image and create it
- * **/
+ **/
 public class ImageWriterTests {
 
     /**
      * Check if the image create grids by intervals of pixels
-     * **/
+     **/
     @Test
     public void writeToImage() {
         ImageWriter imageWriter = new ImageWriter("image1", 1600, 1000, 800, 500);

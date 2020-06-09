@@ -68,7 +68,7 @@ public class Camera {
         rays.add(new Ray(_p0, pointInCenterPixel.subtract(_p0)));
 
         Point3D pointInPixel;
-        if (useManyRays) {
+        if (useManyRays) {//option to use with some rays in pixel
             //add some rays in pixel
             for (int k = 1; k < numOfRays; k++) {
                 double x = (random.nextDouble() - 0.5) * rX;
